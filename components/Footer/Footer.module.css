@@ -1,0 +1,87 @@
+.footer {
+  background-color: #F4F1EA;
+  position: relative;
+  z-index: 10;
+  padding: 5rem 4rem 0;
+  overflow: hidden;
+}
+
+/* ─── Top 4-column grid ──────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.15);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.colTitle {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #1a1a1a;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+}
+
+.colLink,
+.colText {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.9rem;
+  color: #444;
+  text-decoration: none;
+  line-height: 1.8;
+  transition: color 0.2s ease;
+}
+
+.colLink:hover {
+  color: #1a1a1a;
+}
+
+/* ─── Large wordmark ─────────────────────────────────── */
+.wordmark {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(5rem, 18vw, 16rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #1a1a1a;
+  line-height: 0.85;
+  /* Slightly overflow the bottom to bleed like the reference */
+  margin-top: 1rem;
+  padding-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  user-select: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer {
+    padding: 3rem 1.5rem 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .wordmark {
+    font-size: clamp(4rem, 22vw, 10rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    /* Keep 2 columns on mobile as requested */
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}

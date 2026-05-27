@@ -1,0 +1,132 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  padding: 8rem 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+/* ─── Category header ─────────────────────────────────── */
+.section {
+  margin-bottom: 4rem;
+}
+
+.categoryTitle {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8B6F5C;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(139, 111, 92, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1.2rem;
+}
+
+.note {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+/* ─── Items ───────────────────────────────────────────── */
+.item {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+}
+
+/* ─── Sub-groups (cocktails, syrups, teas) ────────────── */
+.subGroup {
+  margin-top: 1.2rem;
+}
+
+.subLabel {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+}
+
+.sublabel {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 0.2rem;
+}
+
+.desc {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #555;
+  line-height: 1.5;
+  margin-top: -0.2rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ─── Decorative tacka paws ───────────────────────────── */
+.tacka {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.tackaLeft {
+  left: 1.5rem;
+}
+
+.tackaRight {
+  right: 1.5rem;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .tackaLeft,
+  .tackaRight {
+    display: none;
+  }
+
+  .container {
+    padding: 5rem 0;
+  }
+}

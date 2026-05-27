@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  padding: 8rem 0;
+  background-color: #FAF9F6;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.customScrollText {
+  color: #1a1a1a;
+  font-family: var(--font-geist-sans), sans-serif;
+  text-transform: uppercase;
+}

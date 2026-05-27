@@ -1,0 +1,30 @@
+.marqueeContainer {
+  width: 100vw;
+  overflow: hidden;
+  padding: 10rem 0;
+  background-color: #000; /* Dark background */
+  color: #fff; /* White text */
+  display: flex;
+  align-items: center;
+}
+
+.marqueeText {
+  white-space: nowrap;
+  font-size: 5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-left: 100vw; /* Start off-screen right */
+  padding-right: 5rem; /* Keep some space at the end */
+  font-family: var(--font-geist-sans), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .marqueeText {
+    font-size: 3rem;
+  }
+  
+  .marqueeContainer {
+    padding: 6rem 0;
+  }
+}

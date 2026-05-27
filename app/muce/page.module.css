@@ -1,0 +1,88 @@
+.hero {
+  background-color: #FAF9F6;
+  padding: 10rem 4rem 5rem;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+
+.heroSub {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 1.1rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* ─── Tiles ─────────────────────────────────────────────── */
+.tilesSection {
+  background-color: #FAF9F6;
+  padding: 10rem 0 8rem;
+  overflow: hidden;
+}
+
+.wrap {
+  width: 100%;
+  display: flex;
+  gap: 2rem;
+  padding: 0 3rem;
+}
+
+.column {
+  width: 33.333%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  will-change: transform;
+}
+
+.tile {
+  width: 100%;
+  height: 30vw;
+  /* Reduced from 45vw */
+  background-size: cover;
+  background-position: center;
+  /* placeholder colour while awaiting images */
+  background-color: #e0ddd6;
+  border-radius: 4px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .wrap {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 1.5rem;
+    gap: 4rem 1.5rem; /* Larger row gap to prevent parallax overlap */
+  }
+
+  .column {
+    width: calc(50% - 0.75rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tile {
+    width: 100%;
+    height: 45vw;
+  }
+}
+
+@media (max-width: 540px) {
+  .column {
+    width: 100%;
+  }
+  
+  .tile {
+    width: 100%;
+    height: 60vw;
+  }
+}
