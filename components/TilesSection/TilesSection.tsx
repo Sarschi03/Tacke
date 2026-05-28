@@ -4,9 +4,8 @@ import React, { useRef, RefObject } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import styles from './TilesSection.module.css';
 
-// Put your image filenames from /public here
-const column1Images = ['/gallery/1.jpg', '/gallery/2.jpg'];
-const column2Images = ['/gallery/3.jpg', '/gallery/4.jpg'];
+const column1Images = ['.././public/dalida.jpg', '/gallery/2.jpg'];
+const column2Images = ['/gallery/dalida.jpg', '/gallery/4.jpg'];
 const column3Images = ['/gallery/5.jpg', '/gallery/6.jpg'];
 const column4Images = ['/gallery/7.jpg', '/gallery/8.jpg'];
 

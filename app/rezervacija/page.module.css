@@ -1,0 +1,187 @@
+.main {
+  width: 100%;
+  background: #fdfbf7;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.title {
+  font-family: var(--font-bodoni-moda, serif);
+  font-size: 3rem;
+  color: #4A4036;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  font-family: var(--font-pt-serif, serif);
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 4rem;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    flex-direction: row;
+  }
+}
+
+.leftCol, .midCol, .rightCol {
+  flex: 1;
+}
+
+.sectionTitle {
+  font-family: var(--font-pt-serif, serif);
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4A4036;
+  border-bottom: 1px solid #Eaeaea;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Calendar */
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendarNavBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4A4036;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #777;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.dayBtn {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  color: #4A4036;
+}
+
+.dayBtn:hover {
+  background: #f0f0f0;
+}
+
+.dayBtn.selected {
+  background: #4A4036;
+  color: white;
+}
+
+.dayBtn.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+.dayBtn.disabled:hover {
+  background: transparent;
+}
+
+/* Middle Col - Time Slots */
+.timeTitle {
+  font-family: var(--font-pt-serif, serif);
+  font-size: 1.2rem;
+  color: #4A4036;
+  margin-bottom: 1rem;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.slotBtn {
+  background: transparent;
+  border: 1px solid #4A4036;
+  color: #4A4036;
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.slotBtn:hover {
+  background: #4A4036;
+  color: white;
+}
+
+.slotBtn.selected {
+  background: #4A4036;
+  color: white;
+}
+
+.slotBtn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Right Col - Details */
+.serviceDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.serviceDetails span {
+  font-size: 1.1rem;
+  color: #4A4036;
+}
+
+.submitBtn {
+  background: #BFA58C;
+  color: white;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+  margin-top: 2rem;
+  font-family: var(--font-pt-serif, serif);
+}
+
+.submitBtn:hover {
+  background: #a98d73;
+}
+
+.submitBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

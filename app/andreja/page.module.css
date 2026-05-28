@@ -1,0 +1,304 @@
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginMain {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginNavWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.loginRow {
+  display: flex;
+  height: 100vh;
+}
+
+.loginImageCol {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
+}
+@media (min-width: 768px) {
+  .loginImageCol {
+    display: block;
+  }
+}
+
+.loginFormCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fdfbf7;
+  padding: 2rem;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+.loginTitle {
+  font-family: var(--font-bodoni-moda, serif);
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0;
+  border: none;
+  border-bottom: 1px solid #000;
+  background: transparent;
+  font-family: var(--font-pt-serif, serif);
+  font-size: 1rem;
+  color: #000;
+}
+.input:focus {
+  outline: none;
+  border-bottom: 2px solid #000;
+}
+
+.loginBtn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-pt-serif, serif);
+  margin-top: 1rem;
+}
+.loginBtn:hover {
+  background: transparent;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Dashboard Styles */
+.dashboardContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  width: 100%;
+  flex: 1;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    flex-direction: row;
+  }
+}
+
+.leftCol {
+  flex: 1;
+}
+
+.rightCol {
+  flex: 2;
+}
+
+.sectionTitle {
+  font-family: var(--font-pt-serif, serif);
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4A4036;
+  border-bottom: 1px solid #Eaeaea;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Calendar reuse logic */
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendarNavBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4A4036;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #777;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.dayBtn {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 4px;
+  color: #4A4036;
+}
+
+.dayBtn:hover {
+  background: #f0f0f0;
+}
+
+.dayBtn.selected {
+  background: #4A4036;
+  color: white;
+}
+
+.dayBtn.pastDay {
+  opacity: 0.3;
+}
+
+/* Week View */
+.weekView {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.weekDayBox {
+  background: white;
+  border: 1px solid #Eaeaea;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.weekDayBox.active {
+  border-color: #4A4036;
+  background: #fffbfa;
+}
+
+.weekDayName {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.5rem;
+}
+
+.weekDayNum {
+  font-size: 1.5rem;
+  color: #4A4036;
+  font-weight: bold;
+}
+
+/* Actions */
+.actionsBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.neDelamBtn {
+  background: #bb3333;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-pt-serif, serif);
+  font-size: 1rem;
+}
+
+.delamBtn {
+  background: #44aa44;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-pt-serif, serif);
+  font-size: 1rem;
+}
+
+.filterSelect {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: var(--font-pt-serif, serif);
+}
+
+/* Reservations List */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid #Eaeaea;
+}
+
+.table th {
+  font-family: var(--font-pt-serif, serif);
+  color: #777;
+}
+
+.table td {
+  color: #4A4036;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  background: #Eaeaea;
+  color: #333;
+}
