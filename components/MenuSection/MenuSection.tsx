@@ -29,10 +29,10 @@ function ParallaxTacka({ side, top, rotate, blur, scale, parallaxSpeed }: TackaP
         rotate,
         filter: blur > 0 ? `blur(${blur}px)` : 'none',
         scale,
-        opacity: 1 - blur * 0.12,
+        opacity: 1 - blur * 0.1,
       }}
     >
-      <Image src="/tacka.png" alt="Tacka" width={100} height={100} />
+      <Image src="/tacka.png" alt="Tacka" width={150} height={150} />
     </motion.div>
   );
 }
@@ -134,11 +134,11 @@ export default function MenuSection() {
     // Left side: 3 tackas — center one is sharp, outer ones blurred
     { side: 'left', top: '10%', rotate: -20, blur: 3, scale: 0.7, parallaxSpeed: 0.6 },
     { side: 'left', top: '45%', rotate: 10, blur: 0, scale: 1, parallaxSpeed: 0.3 },
-    { side: 'left', top: '78%', rotate: -35, blur: 4, scale: 0.8, parallaxSpeed: 0.7 },
+    { side: 'left', top: '78%', rotate: -35, blur: 1, scale: 0.8, parallaxSpeed: 0.7 },
     // Right side: 3 tackas
-    { side: 'right', top: '18%', rotate: 25, blur: 4, scale: 0.75, parallaxSpeed: 0.5 },
+    { side: 'right', top: '18%', rotate: 25, blur: 1, scale: 0.75, parallaxSpeed: 0.5 },
     { side: 'right', top: '52%', rotate: -15, blur: 0, scale: 1.05, parallaxSpeed: 0.25 },
-    { side: 'right', top: '82%', rotate: 30, blur: 3.5, scale: 0.7, parallaxSpeed: 0.65 },
+    { side: 'right', top: '82%', rotate: 30, blur: 4.5, scale: 0.7, parallaxSpeed: 0.65 },
   ];
 
   return (
@@ -147,6 +147,19 @@ export default function MenuSection() {
       {tackas.map((t, i) => (
         <ParallaxTacka key={i} {...t} />
       ))}
+
+      {/* Two-column header — title left, body right — same as Dogodki & novosti */}
+      <div className={styles.intro}>
+        <div className={styles.introLeft}>
+          <h2 className={styles.introTitle}>Naša ponudba.</h2>
+        </div>
+        <div className={styles.introRight}>
+          <p className={styles.introText}>
+            Razvajajte se z našo ponudbo toplih napitkov, osvežilnih sokov in domačih sladic —
+            ob prijetnem prestižu naših mačjih prijateljev.
+          </p>
+        </div>
+      </div>
 
       <motion.div className={styles.inner} style={{ y: textY }}>
         <div className={styles.grid}>

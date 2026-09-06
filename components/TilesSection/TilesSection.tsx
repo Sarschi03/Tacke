@@ -4,10 +4,10 @@ import React, { useRef, RefObject } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import styles from './TilesSection.module.css';
 
-const column1Images = ['.././public/dalida.jpg', '/gallery/2.jpg'];
-const column2Images = ['/gallery/dalida.jpg', '/gallery/4.jpg'];
-const column3Images = ['/gallery/5.jpg', '/gallery/6.jpg'];
-const column4Images = ['/gallery/7.jpg', '/gallery/8.jpg'];
+const column1Images = ['/dalida.jpg', '/dallas.jpg'];
+const column2Images = ['/diana.jpg', '/ferdo.jpg'];
+const column3Images = ['/freya.jpg', '/henrik.jpg'];
+const column4Images = ['/kelly.jpg', '/lilu.jpg'];
 
 interface ColumnProps {
   images: string[];

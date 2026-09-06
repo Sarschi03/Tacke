@@ -29,6 +29,7 @@ export default function Navbar({ hideLinks = false }: { hideLinks?: boolean } = 
         { href: '/o_nas', label: 'O nas' },
         { href: '/o_nas/clanstvo', label: 'Članstvo' },
         { href: '/o_nas/donacije', label: 'Donacije' },
+        { href: '/o_nas/cenik', label: 'Cenik' },
       ]
     },
     { href: '/muce', label: 'Naše muce' },
@@ -39,8 +40,8 @@ export default function Navbar({ hideLinks = false }: { hideLinks?: boolean } = 
   return (
     <>
       <nav className={styles.navbar}>
-        <Link href="/" className={styles.logo} style={{ textDecoration: 'none', color: 'inherit' }}>
-          LOGO
+        <Link href="/" className={styles.logo}>
+          <Image src="/logo.png" alt="Logo" width={60} height={60} className={styles.logoImage} />
         </Link>
 
         {/* Desktop Links */}

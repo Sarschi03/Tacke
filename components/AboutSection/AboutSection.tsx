@@ -39,7 +39,7 @@ export default function AboutSection() {
 
   return (
     <section className={styles.aboutContainer} ref={containerRef}>
-      
+
       <div className={styles.splitSection}>
         {/* LEFT COLUMN - Scrolls normally */}
         <div className={styles.leftColumn}>
@@ -52,11 +52,11 @@ export default function AboutSection() {
                 architecture that belongs to the land and fosters connection.
               </p>
               <div className={styles.smallImageContainer}>
-                <Image src="/1.jpg" alt="Small view 1" fill className={styles.image} />
+                <Image src="/a.jpg" alt="Small view 1" fill className={styles.image} />
               </div>
             </div>
           </div>
-          
+
           {/* Block 2: Just heading and text, NO image */}
           <div className={styles.contentBlock}>
             <div className={styles.blockInner}>
@@ -84,11 +84,11 @@ export default function AboutSection() {
         <div className={styles.rightColumn}>
           <div className={styles.stickyImage}>
             {/* Base Image 1 */}
-            <Image src="/1.jpg" alt="Big view 1" fill className={styles.image} priority />
+            <Image src="/b.jpg" alt="Big view 1" fill className={styles.image} priority />
             {/* Darkening Overlay */}
             <div className={styles.darkOverlay} ref={overlayRef}></div>
             {/* Image 2 (fades in) */}
-            <Image src="/1..jpg" alt="Big view 2" fill className={`${styles.image} ${styles.secondImage}`} ref={image2Ref} />
+            <Image src="/c.jpg" alt="Big view 2" fill className={`${styles.image} ${styles.secondImage}`} ref={image2Ref} />
           </div>
         </div>
       </div>

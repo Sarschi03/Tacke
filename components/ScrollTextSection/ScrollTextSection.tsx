@@ -8,7 +8,7 @@ export default function ScrollTextSection() {
   return (
     <section className={styles.container}>
       <ScrollVelocity
-        texts={['React Bits', 'Scroll Down']} 
+        texts={['Društvo ljubiteljev mačjih tačk', 'Društvo ljubiteljev mačjih tačk']} 
         velocity={100}
         className={styles.customScrollText}
         numCopies={6}

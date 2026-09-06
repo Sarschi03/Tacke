@@ -1,0 +1,18 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* Offset so the paw image centre sits on the click point */
+  margin-top: -20px;
+  margin-left: -20px;
+  pointer-events: none;
+  z-index: 99999;
+  /* No transition — we want zero delay */
+  will-change: transform;
+}
+
+.cursor img {
+  display: block;
+  /* Keep the paw sharp at any DPI */
+  image-rendering: auto;
+}

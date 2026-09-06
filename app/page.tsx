@@ -13,9 +13,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <AboutSection />
-      <ScrollTextSection />
-      <MenuSection />
+      {/*<ScrollTextSection />*/}
       <EventsSection />
+      <MenuSection />
       <TilesSection />
       <Footer />
     </main>

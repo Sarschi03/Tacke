@@ -1,15 +1,14 @@
 .subHero {
   position: relative;
   width: 100%;
-  min-height: 50vh; /* Changed from height to min-height */
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0 2rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  text-align: left;
+  padding: 0 5rem 5rem;
   overflow: hidden;
-  /* Add padding top to account for the absolute navbar */
   padding-top: 6rem;
 }
 
@@ -46,22 +45,25 @@
 
 .title {
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: clamp(3rem, 8vw, 5rem);
+  font-size: clamp(3.5rem, 9vw, 6rem);
   font-weight: 600;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
+  max-width: 900px;
 }
 
 .text {
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+  max-width: 600px;
 }
 
 @media (max-width: 768px) {
   .subHero {
     min-height: 50vh;
-    padding-top: 8rem; /* A bit more padding on mobile to clear navbar */
+    padding: 0 2rem 3rem;
+    padding-top: 8rem;
   }
 }

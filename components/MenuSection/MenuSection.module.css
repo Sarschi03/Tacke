@@ -10,10 +10,46 @@
 
 .inner {
   position: relative;
-  z-index: 2;
-  max-width: 900px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  z-index: 2; /* above tacka */
+}
+
+/* ─── Intro — mirrors EventsSection .topSection ─────────── */
+.intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 9rem; /* generous gap before the menu columns */
+  padding: 0 4rem;
+  position: relative;
+  z-index: 3;
+}
+
+.introLeft {
+  padding-right: 2rem;
+}
+
+.introTitle {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #333;
+}
+
+.introRight {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.introText {
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
 }
 
 .grid {
@@ -107,11 +143,11 @@
 }
 
 .tackaLeft {
-  left: 1.5rem;
+  left: -1rem; /* allow slight bleed at edge; safe outside the 1200px inner */
 }
 
 .tackaRight {
-  right: 1.5rem;
+  right: -1rem;
 }
 
 /* ─── Responsive ──────────────────────────────────────── */
@@ -119,6 +155,20 @@
   .grid {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+
+  .introLeft {
+    padding-right: 0;
+  }
+
+  .introRight {
+    padding-top: 0;
   }
 
   .tackaLeft,

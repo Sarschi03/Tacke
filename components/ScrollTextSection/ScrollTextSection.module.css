@@ -10,5 +10,9 @@
 .customScrollText {
   color: #1a1a1a;
   font-family: var(--font-geist-sans), sans-serif;
-  text-transform: uppercase;
+  line-height: 1.2;
+   font-size: 6rem;
+   color: #8B6F5C;
+  font-weight: 300;
+  letter-spacing: 0.04em;
 }

@@ -8,9 +8,9 @@ import SubHero from "../../components/SubHero/SubHero";
 import styles from './page.module.css';
 
 // Add your images to /public/muce/ folder - 9 images total
-const column1 = ['/muce/1.jpg', '/muce/2.jpg', '/muce/3.jpg'];
-const column2 = ['/muce/4.jpg', '/muce/5.jpg', '/muce/6.jpg'];
-const column3 = ['/muce/7.jpg', '/muce/8.jpg', '/muce/9.jpg'];
+const column1 = ['/dalida.jpg', '/dallas.jpg', '/diana.jpg'];
+const column2 = ['/ferdo.jpg', '/freya.jpg', '/henrik.jpg'];
+const column3 = ['/kelly.jpg', '/lilu.jpg', '/lily.jpg'];
 
 interface ColumnProps {
   images: string[];
@@ -22,14 +22,24 @@ function TileColumn({ images, speed }: ColumnProps) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], [`${speed * -80}px`, `${speed * 80}px`]);
 
+  const getNameFromSrc = (src: string) => {
+    const filename = src.split('/').pop() || '';
+    const name = filename.split('.')[0];
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   return (
     <motion.div className={styles.column} ref={ref} style={{ y }}>
       {images.map((src, i) => (
-        <div
-          key={i}
-          className={styles.tile}
-          style={{ backgroundImage: `url(${src})` }}
-        />
+        <div key={i} className={styles.tileWrapper}>
+          <div
+            className={styles.tile}
+            style={{ backgroundImage: `url(${src})` }}
+          />
+          <div className={styles.nameOverlay}>
+            <span className={styles.catName}>{getNameFromSrc(src)}</span>
+          </div>
+        </div>
       ))}
     </motion.div>
   );
