@@ -4,6 +4,7 @@ import React, { useRef, RefObject } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'motion/react';
 import styles from './MenuSection.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 interface TackaProps {
   side: 'left' | 'right';
@@ -44,7 +45,7 @@ interface SubGroup {
   items: string[];
 }
 
-interface MenuSection {
+interface MenuItemSection {
   category: string;
   subtitle?: string;
   note?: string;
@@ -52,53 +53,7 @@ interface MenuSection {
   sub: SubGroup[];
 }
 
-const menuData: MenuSection[] = [
-  {
-    category: 'KAVNI NAPITKI',
-    subtitle: 'Julius Meinl',
-    items: ['Espresso', 'Dolga kava', 'Kava z mlekom', 'Bela kava', 'Brezkofeinska kava', 'Cappuccino', 'Lahka mačja vroča čokolada', 'Kakav'],
-    sub: [
-      { label: 'Dodatki:', items: ['Sirup MONIN Cimet', 'Sirup MONIN Čokoladni piškot', 'Sirup MONIN Karamela', 'Sirup MONIN Lešnik', 'Sirup MONIN Vanilija'] }
-    ]
-  },
-  {
-    category: 'BREZALKOHOLNE PIJAČE',
-    items: [],
-    sub: [
-      { label: 'Limonada z okusom', sublabel: 'Okusi:', items: ['Malina', 'Pasijonka', 'Ananas', 'Zeleno jabolko', 'Mango', 'Jagoda'] },
-      { label: 'Cats Mojito', desc: '(limonin sok, metin sirup, sladkor, led, liker po želji)', items: [] },
-      { label: 'Cats Colada', desc: '(ananasov sok, kokosovo mleko, led, liker po želji)', items: [] },
-    ]
-  },
-  {
-    category: 'DOMAČI SOKOVI',
-    items: ['Bezeg', 'Šivka', 'Meta', 'Kopriva', 'Vrtnica', 'Pljučnik'],
-    sub: []
-  },
-  {
-    category: 'ČAJI Herbessa',
-    note: 'Cena za prodajo čajev Herbessa: 8,50€/50g',
-    items: [],
-    sub: [
-      { label: 'Čaj za ženske', desc: '(vrtnica, kamilica, rman, bazilika, plahtnica)', items: [] },
-      { label: 'Dihalko', desc: '(materina dušica, pljučnik, smrekovi vršički, origano, trpotec, lipa)', items: [] },
-      { label: 'Ples snežink', desc: '(suh jabolko, plodovi šipka, koriander in gver, oranžna meta, idr.)', items: [] },
-      { label: 'Oaza miru', desc: '(melisa, sivka, rožmarin, lipa, rman, glog)', items: [] },
-      { label: 'Družinska sreča', desc: '(melisa, lipa, rograt, šipek, list jagode)', items: [] },
-    ]
-  },
-  {
-    category: 'ČAJI Julius Meinl',
-    items: ['Razni sadni čaji', 'Razni zeliščni čaji', 'Zeleni čaj', 'Črni čaj'],
-    sub: []
-  },
-];
-
-// Split into two columns
-const col1 = menuData.slice(0, 2);
-const col2 = menuData.slice(2);
-
-function MenuColumn({ sections }: { sections: MenuSection[] }) {
+function MenuColumn({ sections }: { sections: MenuItemSection[] }) {
   return (
     <div className={styles.column}>
       {sections.map((section) => (
@@ -129,35 +84,108 @@ export default function MenuSection() {
   const sectionRef = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] });
   const textY = useTransform(scrollYProgress, [0, 1], ['-20px', '20px']);
+  const { t } = useLanguage();
 
-  const tackas: TackaProps[] = [
-    // Left side: 3 tackas — center one is sharp, outer ones blurred
-    { side: 'left', top: '10%', rotate: -20, blur: 3, scale: 0.7, parallaxSpeed: 0.6 },
-    { side: 'left', top: '45%', rotate: 10, blur: 0, scale: 1, parallaxSpeed: 0.3 },
-    { side: 'left', top: '78%', rotate: -35, blur: 1, scale: 0.8, parallaxSpeed: 0.7 },
-    // Right side: 3 tackas
-    { side: 'right', top: '18%', rotate: 25, blur: 1, scale: 0.75, parallaxSpeed: 0.5 },
-    { side: 'right', top: '52%', rotate: -15, blur: 0, scale: 1.05, parallaxSpeed: 0.25 },
-    { side: 'right', top: '82%', rotate: 30, blur: 4.5, scale: 0.7, parallaxSpeed: 0.65 },
+  const menuData: MenuItemSection[] = [
+    {
+      category: t.menu.cat1_title,
+      subtitle: t.menu.cat1_sub,
+      items: [
+        t.menu.items.espresso,
+        t.menu.items.long_coffee,
+        t.menu.items.coffee_milk,
+        t.menu.items.white_coffee,
+        t.menu.items.decaf_coffee,
+        t.menu.items.cappuccino,
+        t.menu.items.hot_chocolate,
+        t.menu.items.cocoa,
+      ],
+      sub: [
+        {
+          label: t.menu.cat1_extras,
+          items: [
+            t.menu.items.syrup_cinnamon,
+            t.menu.items.syrup_biscuit,
+            t.menu.items.syrup_caramel,
+            t.menu.items.syrup_hazelnut,
+            t.menu.items.syrup_vanilla,
+          ],
+        },
+      ],
+    },
+    {
+      category: t.menu.cat2_title,
+      items: [],
+      sub: [
+        {
+          label: t.menu.cat2_title === 'BREZALKOHOLNE PIJAČE' ? 'Limonada z okusom' : t.menu.cat2_title === 'NON-ALCOHOLIC BEVERAGES' ? 'Flavored Lemonade' : 'Aromatisierte Limonade',
+          sublabel: t.menu.cat2_sublabel,
+          items: [
+            t.menu.items.raspberry,
+            t.menu.items.passionfruit,
+            t.menu.items.pineapple,
+            t.menu.items.green_apple,
+            t.menu.items.mango,
+            t.menu.items.strawberry,
+          ],
+        },
+        { label: t.menu.items.cats_mojito, desc: t.menu.cat2_mojito_desc, items: [] },
+        { label: t.menu.items.cats_colada, desc: t.menu.cat2_colada_desc, items: [] },
+      ],
+    },
+    {
+      category: t.menu.cat3_title,
+      items: [
+        t.menu.items.elderberry,
+        t.menu.items.lavender,
+        t.menu.items.mint,
+        t.menu.items.nettle,
+        t.menu.items.rose,
+        t.menu.items.lungwort,
+      ],
+      sub: [],
+    },
+    {
+      category: t.menu.cat4_title,
+      note: t.menu.cat4_note,
+      items: [],
+      sub: [
+        { label: t.menu.items.tea_women, desc: t.menu.cat4_w_desc, items: [] },
+        { label: t.menu.items.tea_breathe, desc: t.menu.cat4_d_desc, items: [] },
+        { label: t.menu.items.tea_snow, desc: t.menu.cat4_s_desc, items: [] },
+        { label: t.menu.items.tea_oasis, desc: t.menu.cat4_o_desc, items: [] },
+        { label: t.menu.items.tea_family, desc: t.menu.cat4_f_desc, items: [] },
+      ],
+    },
+    {
+      category: t.menu.cat5_title,
+      items: [
+        t.menu.items.fruit_teas,
+        t.menu.items.herbal_teas,
+        t.menu.items.green_tea,
+        t.menu.items.black_tea,
+      ],
+      sub: [],
+    },
   ];
+
+  const col1 = menuData.slice(0, 2);
+  const col2 = menuData.slice(2);
 
   return (
     <section className={styles.container} ref={sectionRef}>
       {/* Decorative tacka paws */}
-      {tackas.map((t, i) => (
+      {/* {tackas.map((t, i) => (
         <ParallaxTacka key={i} {...t} />
-      ))}
+      ))} */}
 
-      {/* Two-column header — title left, body right — same as Dogodki & novosti */}
+      {/* Two-column header */}
       <div className={styles.intro}>
         <div className={styles.introLeft}>
-          <h2 className={styles.introTitle}>Naša ponudba.</h2>
+          <h2 className={styles.introTitle}>{t.menu.intro_title}</h2>
         </div>
         <div className={styles.introRight}>
-          <p className={styles.introText}>
-            Razvajajte se z našo ponudbo toplih napitkov, osvežilnih sokov in domačih sladic —
-            ob prijetnem prestižu naših mačjih prijateljev.
-          </p>
+          <p className={styles.introText}>{t.menu.intro_text}</p>
         </div>
       </div>
 

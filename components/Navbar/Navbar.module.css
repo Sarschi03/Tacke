@@ -13,6 +13,12 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
 }
 
+/* Dark variant — used on home page where hero background is light */
+.navbarDark {
+  background: none;
+  color: #1a1a1a;
+}
+
 /* Logo — centred absolutely so it doesn't disturb the flex layout */
 .logo {
   position: absolute;
@@ -20,12 +26,23 @@
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 101;
+  border-radius: 100px;
+  
 }
 
 .logoImage {
   border-radius: 50%;
   object-fit: cover;
   display: block;
+  overflow: hidden;
+}
+
+.navRightWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  border-radius: 100px;
 }
 
 /* Nav links — pushed to the right by justify-content: flex-end */
@@ -33,6 +50,62 @@
   display: flex;
   gap: 2rem;
   align-items: center;
+}
+
+.langSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: -0.2rem;
+}
+
+.langSwitcherDark {
+  color: rgba(26, 26, 26, 0.65);
+}
+
+.langBtn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: inherit;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.65;
+}
+
+.langBtn:hover {
+  opacity: 1;
+}
+
+.langActive {
+  font-weight: 700;
+  opacity: 1;
+  color: #ffffff;
+}
+
+.langSwitcherDark .langActive {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.langDivider {
+  opacity: 0.4;
+  font-size: 0.75rem;
+}
+
+.mobileLangSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  font-size: 1.1rem;
 }
 
 /* Each link: text on top, tacka underneath */
@@ -44,6 +117,11 @@
   text-decoration: none;
   color: white;
   position: relative;
+}
+
+/* Dark variant link color */
+.linkWrapperDark {
+  color: #1a1a1a;
 }
 
 .linkText {

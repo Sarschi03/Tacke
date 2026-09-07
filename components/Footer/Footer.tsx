@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 function InstagramIcon() {
   return (
@@ -31,6 +32,8 @@ function FacebookIcon() {
 }
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className={styles.footer}>
 
@@ -52,30 +55,30 @@ export default function Footer() {
 
         {/* Col 1 – O nas */}
         <div className={styles.col}>
-          <h3 className={styles.colTitle}>O NAS</h3>
-          <Link href="/o_nas" className={styles.colLink}>O nas</Link>
-          <Link href="/o_nas/clanstvo" className={styles.colLink}>Članstvo</Link>
-          <Link href="/o_nas/donacije" className={styles.colLink}>Donacije</Link>
-          <Link href="/o_nas/cenik" className={styles.colLink}>Cenik</Link>
+          <h3 className={styles.colTitle}>{t.footer.about}</h3>
+          <Link href="/o_nas" className={styles.colLink}>{t.nav.about_sub}</Link>
+          <Link href="/o_nas/clanstvo" className={styles.colLink}>{t.nav.membership}</Link>
+          <Link href="/o_nas/donacije" className={styles.colLink}>{t.nav.donations}</Link>
+          <Link href="/o_nas/cenik" className={styles.colLink}>{t.nav.pricing}</Link>
         </div>
 
-        {/* Col 2 – Naše muce / Rezervacija — title styled same as others */}
+        {/* Col 2 – Naše muce / Rezervacija */}
         <div className={styles.col}>
-          <h3 className={styles.colTitle}>NAŠE MUCE</h3>
-          <Link href="/muce" className={styles.colLink}>Naše muce</Link>
-          <Link href="/rezervacija" className={styles.colLink}>Rezervacija</Link>
+          <h3 className={styles.colTitle}>{t.footer.cats}</h3>
+          <Link href="/muce" className={styles.colLink}>{t.nav.cats}</Link>
+          <Link href="/rezervacija" className={styles.colLink}>{t.nav.reservation}</Link>
         </div>
 
         {/* Col 3 – Delovni čas */}
         <div className={styles.col}>
-          <h3 className={styles.colTitle}>DELOVNI ČAS</h3>
-          <p className={styles.colText}>Vsak dan</p>
-          <p className={styles.colText}>16.15 – 20.30</p>
+          <h3 className={styles.colTitle}>{t.footer.hours}</h3>
+          <p className={styles.colText}>{t.footer.everyDay}</p>
+          <p className={styles.colText}>{t.footer.hoursVal}</p>
         </div>
 
         {/* Col 4 – Lokacija */}
         <div className={styles.col}>
-          <h3 className={styles.colTitle}>LOKACIJA</h3>
+          <h3 className={styles.colTitle}>{t.footer.location}</h3>
           <a
             href="https://maps.google.com/?q=Zagata+5,+Maribor"
             target="_blank"
@@ -88,7 +91,7 @@ export default function Footer() {
 
         {/* Col 5 – Kontakt */}
         <div className={styles.col}>
-          <h3 className={styles.colTitle}>KONTAKT</h3>
+          <h3 className={styles.colTitle}>{t.footer.contact}</h3>
           <a href="tel:041374434" className={styles.colLink}>041 374 434</a>
         </div>
 

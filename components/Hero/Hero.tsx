@@ -1,15 +1,18 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Hero.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const zoomRef = useRef<HTMLDivElement>(null);
   const overlayZoomRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -18,16 +21,20 @@ export default function Hero() {
       if (!zoomRef.current || !overlayZoomRef.current) return;
 
       const ctx = gsap.context(() => {
-        // Zoom in both the background and front images as we scroll down the first 100vh
-        gsap.to([zoomRef.current, overlayZoomRef.current], {
-          scale: 1.05, // Zoom level when fully scrolled over
-          ease: "none",
-          scrollTrigger: {
-            start: 0,
-            end: () => window.innerHeight,
-            scrub: true,
+        // Keep the original image size until scrolling begins.
+        gsap.fromTo(
+          [zoomRef.current, overlayZoomRef.current],
+          { scale: 1 },
+          {
+            scale: 1.2,
+            ease: "none",
+            scrollTrigger: {
+              start: 0,
+              end: () => window.innerHeight,
+              scrub: true,
+            }
           }
-        });
+        );
       });
 
       return () => ctx.revert();
@@ -43,7 +50,7 @@ export default function Hero() {
         <div className={styles.backgroundLayer}>
           <div className={styles.zoomLayer} ref={zoomRef}>
             <Image
-              src="/1. copy.jpg"
+              src="/1.jpg"
               alt="Hero background"
               fill
               priority
@@ -53,12 +60,26 @@ export default function Hero() {
         </div>
         <div className={styles.overlayLayer} ref={overlayZoomRef}>
           <Image
-            src="/1.png"
+            src="/1.jpg"
             alt="Hero overlay"
             fill
             priority
             className={styles.image}
           />
+        </div>
+
+        {/* Left-side text overlay positioned lower */}
+        <div className={styles.heroContent}>
+          <p className={styles.heroLabel}>{t.hero.label}</p>
+          <h1
+            className={styles.heroTitle}
+            dangerouslySetInnerHTML={{ __html: t.hero.title }}
+          />
+          <p className={styles.heroParagraph}>{t.hero.p1}</p>
+          <p className={styles.heroParagraph}>{t.hero.p2}</p>
+          <Link href="/rezervacija" className={styles.heroButton}>
+            {t.hero.btn}
+          </Link>
         </div>
       </div>
     </section>

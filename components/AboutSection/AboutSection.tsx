@@ -5,12 +5,14 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './AboutSection.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const block3Ref = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const image2Ref = useRef<HTMLImageElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -46,10 +48,10 @@ export default function AboutSection() {
           {/* Block 1: Heading, text, and SMALL image */}
           <div className={styles.contentBlock}>
             <div className={styles.blockInner}>
-              <h2 className={styles.heading}>Architecture that belongs to the land.</h2>
-              <p className={styles.paragraph}>
-                We are a full-service, design-forward practice focused on creating
-                architecture that belongs to the land and fosters connection.
+              <h2 className={styles.heading}>{t.about.b1_title}</h2>
+              <p className={styles.paragraph}>{t.about.b1_p1}</p>
+              <p className={styles.paragraph} style={{ fontWeight: 600 }}>
+                {t.about.b1_bold}
               </p>
               <div className={styles.smallImageContainer}>
                 <Image src="/a.jpg" alt="Small view 1" fill className={styles.image} />
@@ -60,22 +62,20 @@ export default function AboutSection() {
           {/* Block 2: Just heading and text, NO image */}
           <div className={styles.contentBlock}>
             <div className={styles.blockInner}>
-              <h2 className={styles.heading}>Harmony in every detail.</h2>
-              <p className={styles.paragraph}>
-                Our designs are born from a thoughtful dialogue infused with optimism,
-                sensitivity, and a profound sense of stewardship.
-              </p>
+              <h2 className={styles.heading}>{t.about.b2_title}</h2>
+              <p className={styles.paragraph}>{t.about.b2_p1}</p>
+              <p className={styles.paragraph}>{t.about.b2_p2}</p>
             </div>
           </div>
 
           {/* Block 3: Triggers the right image change */}
           <div className={styles.contentBlock} ref={block3Ref}>
             <div className={styles.blockInner}>
-              <h2 className={styles.heading}>A vision for the future.</h2>
-              <p className={styles.paragraph}>
-                We believe in creating spaces that are not only beautiful but also
-                deeply meaningful and sustainable for generations to come.
-              </p>
+              <h2 className={styles.heading}>{t.about.b3_title}</h2>
+              <p className={styles.paragraph}>{t.about.b3_p1}</p>
+              <a href="/rezervacija" className={styles.ctaButton}>
+                {t.about.b3_btn}
+              </a>
             </div>
           </div>
         </div>
@@ -84,11 +84,11 @@ export default function AboutSection() {
         <div className={styles.rightColumn}>
           <div className={styles.stickyImage}>
             {/* Base Image 1 */}
-            <Image src="/b.jpg" alt="Big view 1" fill className={styles.image} priority />
+            <Image src="/slika.jpeg" alt="Big view 1" fill className={styles.image} priority />
             {/* Darkening Overlay */}
             <div className={styles.darkOverlay} ref={overlayRef}></div>
             {/* Image 2 (fades in) */}
-            <Image src="/c.jpg" alt="Big view 2" fill className={`${styles.image} ${styles.secondImage}`} ref={image2Ref} />
+            <Image src="/slika2.png" alt="Big view 2" fill className={`${styles.image} ${styles.secondImage}`} ref={image2Ref} />
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import SubHero from "../../components/SubHero/SubHero";
 import styles from './page.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 // Add your images to /public/muce/ folder - 9 images total
 const column1 = ['/dalida.jpg', '/dallas.jpg', '/diana.jpg'];
@@ -46,13 +47,15 @@ function TileColumn({ images, speed }: ColumnProps) {
 }
 
 export default function MucePage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Navbar />
       <main>
         <SubHero 
-          title="Naše muce" 
-          texts={["Spoznajte naše čudovite mačke, ki živijo z nami."]}
+          title={t.pages.cats.subhero_title} 
+          texts={[t.pages.cats.subhero_text]}
           imageSrc="/1. copy.jpg"
           overlayImageSrc="/1.png"
         />

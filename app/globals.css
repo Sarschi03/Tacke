@@ -72,3 +72,14 @@ a {
 html, body, * {
   cursor: none !important;
 }
+
+/* ScrollVelocity text colour override */
+.scrollVelocityText {
+  color: #1a1a1a;
+}
+
+/* Remove all rounded corners on images */
+img {
+  border-radius: 0 !important;
+}
+

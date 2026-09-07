@@ -1,15 +1,20 @@
+"use client";
+
 import Navbar from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import SubHero from "../../../components/SubHero/SubHero";
 import MenuSection from "../../../components/MenuSection/MenuSection";
 import styles from "./page.module.css";
+import { useLanguage } from "../../../context/LanguageContext";
 
 export default function CenikPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Navbar />
       <SubHero 
-        title="Cenik"
+        title={t.pages.pricing.subhero_title}
         texts={[]}
         imageSrc="/1. copy.jpg"
       />
@@ -17,22 +22,22 @@ export default function CenikPage() {
       {/* Pricing info section */}
       <section className={styles.pricingSection}>
         <div className={styles.pricingInner}>
-          <h2 className={styles.pricingTitle}>Vstopnina</h2>
+          <h2 className={styles.pricingTitle}>{t.pages.pricing.title}</h2>
           <div className={styles.pricingGrid}>
             <div className={styles.priceCard}>
-              <span className={styles.priceLabel}>Odrasli</span>
+              <span className={styles.priceLabel}>{t.pages.pricing.adults}</span>
               <span className={styles.priceAmount}>10 €</span>
             </div>
             <div className={styles.priceCard}>
-              <span className={styles.priceLabel}>Otroci (4–9 let)</span>
+              <span className={styles.priceLabel}>{t.pages.pricing.children}</span>
               <span className={styles.priceAmount}>5 €</span>
             </div>
           </div>
           <p className={styles.pricingNote}>
-            Vstop je dovoljen otrokom starosti 4 leta do 9 let v spremstvu odrasle osebe.
+            {t.pages.pricing.note1}
           </p>
           <p className={styles.pricingNote}>
-            V ceno so všete voda, domači sokovi, kava, kakav, domači čaj in sezonsko sadje.
+            {t.pages.pricing.note2}
           </p>
         </div>
       </section>

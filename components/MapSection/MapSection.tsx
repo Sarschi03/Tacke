@@ -1,7 +1,12 @@
+"use client";
+
 import React from 'react';
 import styles from './MapSection.module.css';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function MapSection() {
+  const { t } = useLanguage();
+
   return (
     <section className={styles.mapSection}>
       <div className={styles.container}>
@@ -17,7 +22,7 @@ export default function MapSection() {
 
         <div className={styles.textColumn}>
           <div className={styles.infoBlock}>
-            <h3 className={styles.title}>Naša lokacija</h3>
+            <h3 className={styles.title}>{t.map.title_location}</h3>
             <p className={styles.address}>
               Zagata 5<br/>
               Maribor<br/>
@@ -26,11 +31,16 @@ export default function MapSection() {
           </div>
           
           <div className={styles.infoBlock}>
-            <h3 className={styles.title}>Delovni čas</h3>
+            <h3 className={styles.title}>{t.map.title_contact}</h3>
+            <p className={styles.address}>
+              <a href="tel:041374434" style={{ color: '#444', textDecoration: 'none' }}>041 374 434</a>
+            </p>
+          </div>
+          
+          <div className={styles.infoBlock}>
+            <h3 className={styles.title}>{t.map.title_hours}</h3>
             <div className={styles.hoursList}>
-              <div className={styles.hoursRow}><span>Ponedeljek - Petek:</span> <span>09:00 - 20:00</span></div>
-              <div className={styles.hoursRow}><span>Sobota:</span> <span>09:00 - 15:00</span></div>
-              <div className={styles.hoursRow}><span>Nedelja in prazniki:</span> <span>Zaprto</span></div>
+              <div className={styles.hoursRow}><span>{t.map.every_day}</span> <span>{t.footer.hoursVal}</span></div>
             </div>
           </div>
         </div>

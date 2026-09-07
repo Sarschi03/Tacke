@@ -1,15 +1,15 @@
 .subHero {
   position: relative;
   width: 100%;
-  min-height: 50vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   text-align: left;
-  padding: 0 5rem 5rem;
+  padding: 0 5rem 3rem;
   overflow: hidden;
-  padding-top: 6rem;
+  padding-top: 10rem;
 }
 
 .imageWrapper {
@@ -32,38 +32,46 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay to make white text readable */
+  background-color: rgba(0, 0, 0, 0.45); /* Dark overlay to make white text readable */
   z-index: 1;
 }
 
 .content {
   position: relative;
   z-index: 2;
+  width: 52%;
   max-width: 800px;
   color: #fff;
 }
 
 .title {
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: clamp(3.5rem, 9vw, 6rem);
+  font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 600;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
   letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  max-width: 900px;
+  max-width: 800px;
 }
 
 .text {
   font-family: var(--font-geist-sans), sans-serif;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.75rem;
   max-width: 600px;
 }
 
 @media (max-width: 768px) {
   .subHero {
     min-height: 50vh;
-    padding: 0 2rem 3rem;
+    padding: 0 2rem 2rem;
     padding-top: 8rem;
+  }
+
+  .content {
+    width: 100%;
   }
 }

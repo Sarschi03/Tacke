@@ -7,6 +7,7 @@ import SubHero from "../../components/SubHero/SubHero";
 import styles from "./page.module.css";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { useLanguage } from "../../context/LanguageContext";
 
 const TIME_SLOTS = [
   "09:00-10:00",
@@ -18,13 +19,10 @@ const TIME_SLOTS = [
   "18:45-19:45"
 ];
 
-const DAYS_OF_WEEK = ["pon.", "tor.", "sre.", "čet.", "pet.", "sob.", "ned."];
-const MONTHS = [
-  "januar", "februar", "marec", "april", "maj", "junij",
-  "julij", "avgust", "september", "oktober", "november", "december"
-];
-
 export default function RezervacijaPage() {
+  const { t } = useLanguage();
+  const DAYS_OF_WEEK = t.pages.reservation.weekdays;
+  const MONTHS = t.pages.reservation.months;
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -98,8 +96,8 @@ export default function RezervacijaPage() {
       <Navbar />
       <main className={styles.main}>
         <SubHero 
-          title="Načrtujte vašo storitev" 
-          texts={["Preverite našo razpoložljivost in rezervirajte datum in uro, ki vam ustrezata"]}
+          title={t.pages.reservation.subhero_title} 
+          texts={[t.pages.reservation.subhero_text]}
           imageSrc="/1. copy.jpg"
           overlayImageSrc="/1.png"
         />
@@ -109,7 +107,7 @@ export default function RezervacijaPage() {
             
             {/* Left Col - Calendar */}
             <div className={styles.leftCol}>
-              <h2 className={styles.sectionTitle}>Izberite datum in uro</h2>
+              <h2 className={styles.sectionTitle}>{t.pages.reservation.pick_date_time}</h2>
               
               <div className={styles.calendarHeader}>
                 <button className={styles.calendarNavBtn} onClick={handlePrevMonth}>&lt;</button>
@@ -155,13 +153,13 @@ export default function RezervacijaPage() {
               {selectedDate ? (
                 <>
                   <h3 className={styles.timeTitle}>
-                    Razpoložljivost za {DAYS_OF_WEEK[(selectedDate.getDay() + 6) % 7]}., {selectedDate.getDate()}. {MONTHS[selectedDate.getMonth()]}
+                    {t.pages.reservation.avail_for} {DAYS_OF_WEEK[(selectedDate.getDay() + 6) % 7]}., {selectedDate.getDate()}. {MONTHS[selectedDate.getMonth()]}
                   </h3>
                   
                   {availability === undefined ? (
-                    <p>Nalaganje...</p>
+                    <p>{t.pages.reservation.loading}</p>
                   ) : availability.isUnavailable ? (
-                    <p>Ni razpoložljivosti (Na ta dan ne delamo).</p>
+                    <p>{t.pages.reservation.unavailable}</p>
                   ) : (
                     <div className={styles.slotsGrid}>
                       {TIME_SLOTS.map(slot => {
@@ -177,7 +175,7 @@ export default function RezervacijaPage() {
                             disabled={disabled}
                             onClick={() => setSelectedTime(slot)}
                           >
-                            {slot} {isFull && "(Zasedeno)"}
+                            {slot} {isFull && t.pages.reservation.full}
                           </button>
                         );
                       })}
@@ -185,16 +183,16 @@ export default function RezervacijaPage() {
                   )}
                 </>
               ) : (
-                <p>Izberite datum za prikaz ur.</p>
+                <p>{t.pages.reservation.pick_date_first}</p>
               )}
             </div>
 
             {/* Right Col - Review */}
             <div className={styles.rightCol}>
-              <h2 className={styles.sectionTitle}>Podatki o storitvi</h2>
+              <h2 className={styles.sectionTitle}>{t.pages.reservation.service_info}</h2>
               <div className={styles.serviceDetails}>
-                <span>Rezervacija mize</span>
-                <span style={{ fontSize: '0.9rem', color: '#777', cursor: 'pointer' }}>Več podrobnosti ⬇</span>
+                <span>{t.pages.reservation.table_reservation}</span>
+                <span style={{ fontSize: '0.9rem', color: '#777', cursor: 'pointer' }}>{t.pages.reservation.more_details}</span>
               </div>
               
               <button 
@@ -206,7 +204,7 @@ export default function RezervacijaPage() {
                   }
                 }}
               >
-                Izberi mizo
+                {t.pages.reservation.pick_table}
               </button>
             </div>
 

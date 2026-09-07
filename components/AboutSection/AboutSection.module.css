@@ -112,3 +112,27 @@
     width: 80%;
   }
 }
+
+/* ─── CTA Button ─────────────────────────────────────── */
+.ctaButton {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.85rem 2rem;
+  background-color: #F2EDD9;
+  color: #1a1a1a;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ctaButton:hover {
+  background-color: #e8e0c4;
+}
