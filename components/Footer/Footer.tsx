@@ -92,7 +92,13 @@ export default function Footer() {
         {/* Col 5 – Kontakt */}
         <div className={styles.col}>
           <h3 className={styles.colTitle}>{t.footer.contact}</h3>
-          <a href="tel:041374434" className={styles.colLink}>041 374 434</a>
+          <a href="tel:041374434" className={styles.colLink}>041 374 434</a><br/>
+          <p  className={styles.colLink}>TRR SI56 6100 0002 9754 224 <br/> Delavska hranilnica DD<br/>
+BIC/SWIFT: HDELSI22<br/>
+
+DAVČNA ŠTEVILKA: 23705647<br/>
+
+MATIČNA ŠTEVILKA: 4127951000</p>
         </div>
 
       </div>

@@ -303,7 +303,7 @@ export const translations: Record<Language, Translations> = {
       location: 'LOKACIJA',
       contact: 'KONTAKT',
       everyDay: 'Vsak dan',
-      hoursVal: '16.15 – 20.30',
+      hoursVal: '16.15 – 19.45',
     },
     map: {
       title_location: 'Naša lokacija',
@@ -500,7 +500,7 @@ export const translations: Record<Language, Translations> = {
       location: 'LOCATION',
       contact: 'CONTACT',
       everyDay: 'Every day',
-      hoursVal: '16:15 – 20:30',
+      hoursVal: '16.15 – 19.45',
     },
     map: {
       title_location: 'Our location',
@@ -697,7 +697,7 @@ export const translations: Record<Language, Translations> = {
       location: 'STANDORT',
       contact: 'KONTAKT',
       everyDay: 'Täglich',
-      hoursVal: '16:15 – 20:30',
+      hoursVal: '16.15 – 19.45',
     },
     map: {
       title_location: 'Unser Standort',

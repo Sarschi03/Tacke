@@ -50,7 +50,7 @@ export default function Hero() {
         <div className={styles.backgroundLayer}>
           <div className={styles.zoomLayer} ref={zoomRef}>
             <Image
-              src="/1.jpg"
+              src="/1..jpg"
               alt="Hero background"
               fill
               priority
