@@ -14,6 +14,7 @@
   max-width: 1200px;
   margin: 0 auto;
   z-index: 2; /* above tacka */
+  padding: 0 4rem;
 }
 
 /* ─── Intro — mirrors EventsSection .topSection ─────────── */
@@ -56,7 +57,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
+  min-width: 0;
 }
+
+.column,
+.section { min-width: 0; }
 
 /* ─── Category header ─────────────────────────────────── */
 .section {
@@ -100,6 +105,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 
 /* ─── Sub-groups (cocktails, syrups, teas) ────────────── */
@@ -115,6 +121,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   line-height: 1.9;
+  overflow-wrap: anywhere;
 }
 
 .sublabel {
@@ -152,6 +159,11 @@
 
 /* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 768px) {
+  .inner {
+    padding: 0 1.25rem;
+    transform: none !important;
+  }
+
   .grid {
     grid-template-columns: 1fr;
     gap: 0;
@@ -160,7 +172,8 @@
   .intro {
     grid-template-columns: 1fr;
     gap: 2rem;
-    padding: 0 2rem;
+    padding: 0 1.25rem;
+    margin-bottom: 3.5rem;
   }
 
   .introLeft {
@@ -177,6 +190,19 @@
   }
 
   .container {
-    padding: 5rem 0;
+    min-height: auto;
+    padding: 4rem 0 2.5rem;
+    overflow: visible;
   }
+
+  .introTitle { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+  .introText { font-size: 0.95rem; line-height: 1.55; }
+  .section { margin-bottom: 2.75rem; }
+  .item, .subLabel { font-size: 0.82rem; line-height: 1.75; }
+  .desc { font-size: 0.76rem; }
+}
+
+@media (max-width: 380px) {
+  .inner, .intro { padding-inline: 1rem; }
+  .item, .subLabel { font-size: 0.76rem; letter-spacing: 0.025em; }
 }

@@ -5,6 +5,7 @@ export interface Translations {
     home: string;
     about: string;
     about_sub: string;
+    about_cats: string;
     membership: string;
     donations: string;
     pricing: string;
@@ -201,6 +202,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Domov',
       about: 'O nas',
       about_sub: 'O nas',
+      about_cats: 'O mucah',
       membership: 'Članstvo',
       donations: 'Donacije',
       pricing: 'Cenik',
@@ -398,6 +400,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Home',
       about: 'About us',
       about_sub: 'About us',
+      about_cats: 'About the cats',
       membership: 'Membership',
       donations: 'Donations',
       pricing: 'Pricing',
@@ -595,6 +598,7 @@ export const translations: Record<Language, Translations> = {
       home: 'Startseite',
       about: 'Über uns',
       about_sub: 'Über uns',
+      about_cats: 'Über die Katzen',
       membership: 'Mitgliedschaft',
       donations: 'Spenden',
       pricing: 'Preise',

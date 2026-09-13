@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './Navbar.module.css';
-import { useLanguage, Language } from '../../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Navbar({ hideLinks = false, darkText = false }: { hideLinks?: boolean; darkText?: boolean } = {}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,6 +29,7 @@ export default function Navbar({ hideLinks = false, darkText = false }: { hideLi
       label: t.nav.about,
       subLinks: [
         { href: '/o_nas', label: t.nav.about_sub },
+        { href: '/o_nas/o_mucah', label: t.nav.about_cats },
         { href: '/o_nas/clanstvo', label: t.nav.membership },
         { href: '/o_nas/donacije', label: t.nav.donations },
         { href: '/o_nas/cenik', label: t.nav.pricing },
@@ -106,14 +107,17 @@ export default function Navbar({ hideLinks = false, darkText = false }: { hideLi
 
         {/* Hamburger Menu (Mobile) */}
         {!hideLinks && (
-          <div
+          <button
+            type="button"
+            aria-label={isOpen ? 'Zapri navigacijo' : 'Odpri navigacijo'}
+            aria-expanded={isOpen}
             className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
             onClick={toggleMenu}
           >
             <div className={`${styles.line} ${styles.line1}`}></div>
             <div className={`${styles.line} ${styles.line2}`}></div>
             <div className={`${styles.line} ${styles.line3}`}></div>
-          </div>
+          </button>
         )}
       </nav>
 
@@ -133,8 +137,8 @@ export default function Navbar({ hideLinks = false, darkText = false }: { hideLi
                 ))}
               </React.Fragment>
             ))}
-            {renderLangSwitcher(styles.mobileLangSwitcher)}
           </div>
+          {renderLangSwitcher(styles.mobileLangSwitcher)}
         </div>
       )}
     </>

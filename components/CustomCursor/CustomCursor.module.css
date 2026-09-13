@@ -16,3 +16,7 @@
   /* Keep the paw sharp at any DPI */
   image-rendering: auto;
 }
+
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  .cursor { display: none; }
+}

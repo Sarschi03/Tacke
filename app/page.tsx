@@ -10,7 +10,7 @@ import Footer from "../components/Footer/Footer";
 export default function Home() {
   return (
     <main>
-      <Navbar darkText />
+      <Navbar />
       <Hero />
       <AboutSection />
       {/*<ScrollTextSection />*/}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
@@ -11,19 +11,29 @@ import { useLanguage } from '../../context/LanguageContext';
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const zoomRef = useRef<HTMLDivElement>(null);
-  const overlayZoomRef = useRef<HTMLDivElement>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
   const { t } = useLanguage();
+
+  const heroImages = ['/3.jpg', '/4.jpg', '/5.jpg', '/6.jpg'];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % heroImages.length);
+    }, 6000);
+
+    return () => window.clearInterval(interval);
+  }, [heroImages.length]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
 
-      if (!zoomRef.current || !overlayZoomRef.current) return;
+      if (!zoomRef.current) return;
 
       const ctx = gsap.context(() => {
         // Keep the original image size until scrolling begins.
         gsap.fromTo(
-          [zoomRef.current, overlayZoomRef.current],
+          zoomRef.current,
           { scale: 1 },
           {
             scale: 1.2,
@@ -49,24 +59,20 @@ export default function Hero() {
       >
         <div className={styles.backgroundLayer}>
           <div className={styles.zoomLayer} ref={zoomRef}>
-            <Image
-              src="/1..jpg"
-              alt="Hero background"
-              fill
-              priority
-              className={styles.image}
-            />
+            {heroImages.map((src, index) => (
+              <Image
+                key={src}
+                src={src}
+                alt="Mačke v društvu ljubiteljev mačjih tačk"
+                fill
+                priority={index === 0}
+                sizes="100vw"
+                className={`${styles.image} ${styles.slide} ${index === activeSlide ? styles.slideActive : ''}`}
+              />
+            ))}
           </div>
         </div>
-        <div className={styles.overlayLayer} ref={overlayZoomRef}>
-          <Image
-            src="/1.jpg"
-            alt="Hero overlay"
-            fill
-            priority
-            className={styles.image}
-          />
-        </div>
+        <div className={styles.imageOverlay} aria-hidden="true" />
 
         {/* Left-side text overlay positioned lower */}
         <div className={styles.heroContent}>
