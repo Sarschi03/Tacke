@@ -56,6 +56,9 @@ export const addReservation = mutation({
     message: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    if (args.adminCreated && !(await ctx.auth.getUserIdentity())) {
+      throw new Error("Not authenticated");
+    }
     validateReservationInput(args);
     // Basic double check
     const unavailable = await ctx.db
@@ -101,6 +104,7 @@ export const addReservation = mutation({
 export const deleteReservations = mutation({
   args: { ids: v.array(v.id("reservations")) },
   handler: async (ctx, args) => {
+    if (!(await ctx.auth.getUserIdentity())) throw new Error("Not authenticated");
     for (const id of args.ids) await ctx.db.delete(id);
   },
 });
@@ -108,6 +112,7 @@ export const deleteReservations = mutation({
 export const rescheduleReservation = mutation({
   args: { id: v.id("reservations"), date: v.string(), timeSlot: v.string() },
   handler: async (ctx, args) => {
+    if (!(await ctx.auth.getUserIdentity())) throw new Error("Not authenticated");
     if (!TIME_SLOTS.includes(args.timeSlot)) throw new Error("Izbrani termin ni veljaven.");
     const reservation = await ctx.db.get(args.id);
     if (!reservation) throw new Error("Rezervacija ne obstaja.");
@@ -137,6 +142,7 @@ export const rescheduleReservation = mutation({
 export const getDashboardData = query({
   args: { startDate: v.string(), endDate: v.string() },
   handler: async (ctx, args) => {
+    if (!(await ctx.auth.getUserIdentity())) throw new Error("Not authenticated");
     const reservations = await ctx.db
       .query("reservations")
       .filter((q) => 
@@ -165,6 +171,7 @@ export const getDashboardData = query({
 export const toggleUnavailable = mutation({
   args: { date: v.string() },
   handler: async (ctx, args) => {
+    if (!(await ctx.auth.getUserIdentity())) throw new Error("Not authenticated");
     const existing = await ctx.db
       .query("unavailableDates")
       .withIndex("by_date", (q) => q.eq("date", args.date))

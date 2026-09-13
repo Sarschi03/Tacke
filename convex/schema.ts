@@ -1,7 +1,9 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 export default defineSchema({
+  ...authTables,
   reservations: defineTable({
     date: v.string(), // "YYYY-MM-DD"
     timeSlot: v.string(), // "09:00 - 10:00" etc.

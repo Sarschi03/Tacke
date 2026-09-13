@@ -4,6 +4,8 @@ import { FormEvent, useMemo, useState } from "react";
 import SubHero from "../../components/SubHero/SubHero";
 import styles from "./page.module.css";
 import { useMutation, useQuery } from "convex/react";
+import { useAuthActions } from "@convex-dev/auth/react";
+import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
 
@@ -28,20 +30,45 @@ const dateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
 export default function DashboardPage() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  return (
+    <>
+      <AuthLoading>
+        <main className={styles.loginMain} />
+      </AuthLoading>
+      <Unauthenticated>
+        <LoginForm />
+      </Unauthenticated>
+      <Authenticated>
+        <DashboardContent />
+      </Authenticated>
+    </>
+  );
+}
+
+function LoginForm() {
+  const { signIn } = useAuthActions();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  function login(event: FormEvent) {
+  async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (username === "andreja" && password === "andreja123") {
-      setLoggedIn(true);
+    setSubmitting(true);
+    const formData = new FormData();
+    formData.set("email", username.trim().toLowerCase());
+    formData.set("password", password);
+    formData.set("flow", "signIn");
+    try {
+      await signIn("password", formData);
       setError("");
-    } else setError("Napačno uporabniško ime ali geslo.");
+    } catch {
+      setError("Napačno uporabniško ime ali geslo.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
-  if (loggedIn) return <DashboardContent />;
   return (
     <main className={styles.loginMain}>
       <div className={styles.loginRow}>
@@ -65,7 +92,9 @@ export default function DashboardPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
-            <button type="submit">Prijava</button>
+            <button type="submit" disabled={submitting}>
+              {submitting ? "Prijavljanje ..." : "Prijava"}
+            </button>
           </form>
         </div>
       </div>
@@ -74,6 +103,7 @@ export default function DashboardPage() {
 }
 
 function DashboardContent() {
+  const { signOut } = useAuthActions();
   const [calendarDate, setCalendarDate] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [filter, setFilter] = useState<"all" | "reservations">("all");
@@ -347,6 +377,9 @@ function DashboardContent() {
                 <option value="all">Vsi termini</option>
                 <option value="reservations">Samo rezervirani</option>
               </select>
+              <button type="button" onClick={() => void signOut()}>
+                Odjava
+              </button>
             </div>
             {selectedIds.size > 0 && (
               <div className={styles.selectionBar}>
