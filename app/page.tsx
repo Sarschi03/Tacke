@@ -1,7 +1,6 @@
 import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
 import AboutSection from "../components/AboutSection/AboutSection";
-import ScrollTextSection from "../components/ScrollTextSection/ScrollTextSection";
 import MenuSection from "../components/MenuSection/MenuSection";
 import EventsSection from "../components/EventsSection/EventsSection";
 import TilesSection from "../components/TilesSection/TilesSection";

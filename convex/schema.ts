@@ -6,7 +6,12 @@ export default defineSchema({
     date: v.string(), // "YYYY-MM-DD"
     timeSlot: v.string(), // "09:00 - 10:00" etc.
     status: v.string(), // "active", "cancelled"
-    // Other fields can be added later if needed, e.g., name, email
+    name: v.optional(v.string()),
+    email: v.optional(v.string()),
+    phone: v.optional(v.string()),
+    partySize: v.optional(v.number()),
+    adminCreated: v.optional(v.boolean()),
+    message: v.optional(v.string()),
   }).index("by_date", ["date"]),
 
   unavailableDates: defineTable({

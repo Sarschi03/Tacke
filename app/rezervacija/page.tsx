@@ -1,19 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { FormEvent, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import SubHero from "../../components/SubHero/SubHero";
 import styles from "./page.module.css";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useLanguage } from "../../context/LanguageContext";
 
 const TIME_SLOTS = [
-  "09:00-10:00",
-  "10:15-11:15",
-  "11:30-12:30",
-  "15:00-16:00",
   "16:15-17:15",
   "17:30-18:30",
   "18:45-19:45"
@@ -26,19 +22,48 @@ export default function RezervacijaPage() {
   const [currentDate, setCurrentDate] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [status, setStatus] = useState("");
+  const [sending, setSending] = useState(false);
 
   const formattedDate = selectedDate
     ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`
     : "1970-01-01"; // Dummy date before selection to avoid query errors
 
   const availability = useQuery(api.reservations.getAvailability, { date: formattedDate });
+  const addReservation = useMutation(api.reservations.addReservation);
+
+  async function submitReservation(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!selectedDate || !selectedTime) return;
+    const form = new FormData(event.currentTarget);
+    setSending(true);
+    setStatus("");
+    try {
+      await addReservation({
+        date: formattedDate,
+        timeSlot: selectedTime,
+        name: String(form.get("name")),
+        email: String(form.get("email")),
+        phone: String(form.get("phone")),
+        partySize: Number(form.get("partySize")),
+        message: String(form.get("message") ?? ""),
+      });
+      setStatus("Rezervacija je uspešno oddana.");
+      setSelectedTime(null);
+      event.currentTarget.reset();
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Rezervacije ni bilo mogoče oddati.");
+    } finally {
+      setSending(false);
+    }
+  }
 
   const getDaysInMonth = (year: number, month: number) => {
     return new Date(year, month + 1, 0).getDate();
   };
 
   const getFirstDayOfMonth = (year: number, month: number) => {
-    let day = new Date(year, month, 1).getDay();
+    const day = new Date(year, month, 1).getDay();
     return day === 0 ? 6 : day - 1; // Adjust so Monday is 0, Sunday is 6
   };
 
@@ -55,12 +80,12 @@ export default function RezervacijaPage() {
   const daysInMonth = getDaysInMonth(currentYear, currentMonth);
   const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
 
-  const daysArray = useMemo(() => {
+  const daysArray = (() => {
     const arr = [];
     for (let i = 0; i < firstDay; i++) arr.push(null);
     for (let i = 1; i <= daysInMonth; i++) arr.push(i);
     return arr;
-  }, [daysInMonth, firstDay]);
+  })();
 
   const handleDateClick = (day: number) => {
     const newDate = new Date(currentYear, currentMonth, day);
@@ -165,7 +190,7 @@ export default function RezervacijaPage() {
                       {TIME_SLOTS.map(slot => {
                         const passed = isTimePassed(slot);
                         const booked = availability.slotsCount[slot] || 0;
-                        const isFull = booked >= 10;
+                        const isFull = booked >= 12;
                         const disabled = passed || isFull;
 
                         return (
@@ -187,25 +212,17 @@ export default function RezervacijaPage() {
               )}
             </div>
 
-            {/* Right Col - Review */}
             <div className={styles.rightCol}>
-              <h2 className={styles.sectionTitle}>{t.pages.reservation.service_info}</h2>
-              <div className={styles.serviceDetails}>
-                <span>{t.pages.reservation.table_reservation}</span>
-                <span style={{ fontSize: '0.9rem', color: '#777', cursor: 'pointer' }}>{t.pages.reservation.more_details}</span>
-              </div>
-              
-              <button 
-                className={styles.submitBtn} 
-                disabled={!selectedDate || !selectedTime}
-                onClick={() => {
-                  if (selectedDate && selectedTime) {
-                    window.location.href = `/rezervacija/miza?date=${formattedDate}&time=${selectedTime}`;
-                  }
-                }}
-              >
-                {t.pages.reservation.pick_table}
-              </button>
+              <h2 className={styles.sectionTitle}>Podatki za rezervacijo</h2>
+              <form className={styles.reservationForm} onSubmit={submitReservation}>
+                <label>Ime in priimek<input name="name" required autoComplete="name" /></label>
+                <label>E-poštni naslov<input name="email" type="email" required autoComplete="email" /></label>
+                <label>Telefonska številka<input name="phone" type="tel" required autoComplete="tel" /></label>
+                <label>Število oseb<input name="partySize" type="number" min="1" max="12" defaultValue="1" required /></label>
+                <label>Sporočilo ali alergije <span>(neobvezno)</span><textarea name="message" rows={4} placeholder="Alergije, posebne želje ali kratko sporočilo …" /></label>
+                <button className={styles.submitBtn} disabled={!selectedDate || !selectedTime || sending}>{sending ? "Pošiljanje …" : "Oddaj rezervacijo"}</button>
+                {status && <p className={styles.formStatus} role="status">{status}</p>}
+              </form>
             </div>
 
           </div>

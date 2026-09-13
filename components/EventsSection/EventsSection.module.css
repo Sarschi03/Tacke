@@ -73,10 +73,12 @@
 
 /* ── Event cards ── */
 .cardsRow {
-  display: grid;
+  display: none; /* Event cards are temporarily hidden; content remains in the component. */
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
+
+.bottomSection { grid-template-columns: minmax(0, 34rem); }
 
 .card {
   display: flex;

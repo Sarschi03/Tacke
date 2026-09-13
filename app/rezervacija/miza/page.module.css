@@ -1,0 +1,11 @@
+.main { min-height: 75vh; padding: 10rem 1.5rem 5rem; background: #fdfbf7; color: #4a4036; }
+.form { width: min(100%, 34rem); margin: 0 auto; display: grid; gap: 1.25rem; }
+.eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #8b6f5c; }
+.form h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1; }
+.slot { padding-bottom: 1rem; border-bottom: 1px solid #d9d2c8; color: #71675e; }
+.form label { display: grid; gap: .45rem; font-size: .8rem; font-weight: 700; letter-spacing: .05em; }
+.form input { width: 100%; padding: .9rem 0; border: 0; border-bottom: 1px solid #8b8177; background: transparent; color: #1a1a1a; font: inherit; }
+.form input:focus { outline: 0; border-color: #1a1a1a; }
+.form button { margin-top: .5rem; padding: 1rem 1.4rem; border: 0; background: #4a4036; color: #fff; font-weight: 700; cursor: pointer; }
+.form button:disabled { opacity: .45; cursor: not-allowed; }
+.status { font-size: .9rem; line-height: 1.5; }

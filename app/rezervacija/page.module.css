@@ -185,3 +185,16 @@
   background: #ccc;
   cursor: not-allowed;
 }
+
+.reservationForm { display: grid; gap: 1rem; }
+.reservationForm label { display: grid; gap: .4rem; color: #4A4036; font-size: .82rem; font-weight: 650; }
+.reservationForm label span { color: #888; font-size: .72rem; font-weight: 400; }
+.reservationForm input, .reservationForm textarea { width: 100%; padding: .75rem; border: 1px solid #d8d1c8; border-radius: 0; background: #fff; color: #27221e; font: inherit; }
+.reservationForm textarea { resize: vertical; min-height: 6rem; }
+.reservationForm input:focus, .reservationForm textarea:focus { outline: 2px solid #BFA58C; outline-offset: 1px; }
+.formStatus { color: #4A4036; font-size: .9rem; line-height: 1.5; }
+
+@media (max-width: 767px) {
+  .container { padding: 3rem 1.25rem; }
+  .grid { gap: 2.5rem; }
+}

@@ -1,283 +1,565 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import Navbar from "../../components/Navbar/Navbar";
-import Footer from "../../components/Footer/Footer";
+import { FormEvent, useMemo, useState } from "react";
 import SubHero from "../../components/SubHero/SubHero";
 import styles from "./page.module.css";
-import { useQuery, useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import type { Id } from "../../convex/_generated/dataModel";
 
-const TIME_SLOTS = [
-  "09:00-10:00",
-  "10:15-11:15",
-  "11:30-12:30",
-  "15:00-16:00",
-  "16:15-17:15",
-  "17:30-18:30",
-  "18:45-19:45"
-];
-
-const DAYS_OF_WEEK = ["pon.", "tor.", "sre.", "čet.", "pet.", "sob.", "ned."];
+const TIME_SLOTS = ["16:15-17:15", "17:30-18:30", "18:45-19:45"];
+const DAYS = ["pon.", "tor.", "sre.", "čet.", "pet.", "sob.", "ned."];
 const MONTHS = [
-  "januar", "februar", "marec", "april", "maj", "junij",
-  "julij", "avgust", "september", "oktober", "november", "december"
+  "januar",
+  "februar",
+  "marec",
+  "april",
+  "maj",
+  "junij",
+  "julij",
+  "avgust",
+  "september",
+  "oktober",
+  "november",
+  "december",
 ];
+
+const dateKey = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
 export default function DashboardPage() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  function login(event: FormEvent) {
+    event.preventDefault();
     if (username === "andreja" && password === "andreja123") {
-      setIsLogged(true);
+      setLoggedIn(true);
       setError("");
-    } else {
-      setError("Napačno uporabniško ime ali geslo.");
-    }
-  };
-
-  if (!isLogged) {
-    return (
-      <main className={styles.loginMain}>
-        <div className={styles.loginNavWrapper}>
-          <Navbar hideLinks={true} />
-        </div>
-        <div className={styles.loginRow}>
-          <div className={styles.loginImageCol} style={{ backgroundImage: 'url("/1. copy.jpg")' }} />
-          <div className={styles.loginFormCol}>
-            <form className={styles.loginBox} onSubmit={handleLogin}>
-              <h1 className={styles.loginTitle}>Prijava v sistem</h1>
-              {error && <p className={styles.error}>{error}</p>}
-              <input 
-                type="text" 
-                placeholder="Uporabniško ime" 
-                className={styles.input} 
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-              />
-              <input 
-                type="password" 
-                placeholder="Geslo" 
-                className={styles.input}
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              />
-              <button type="submit" className={styles.loginBtn}>Prijava</button>
-            </form>
-          </div>
-        </div>
-      </main>
-    );
+    } else setError("Napačno uporabniško ime ali geslo.");
   }
 
-  return <DashboardContent />;
+  if (loggedIn) return <DashboardContent />;
+  return (
+    <main className={styles.loginMain}>
+      <div className={styles.loginRow}>
+        <div className={styles.loginImageCol} />
+        <div className={styles.loginFormCol}>
+          <form className={styles.loginBox} onSubmit={login}>
+            <h1>Prijava v sistem</h1>
+            {error && <p className={styles.error}>{error}</p>}
+            <input
+              aria-label="Uporabniško ime"
+              placeholder="Uporabniško ime"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              required
+            />
+            <input
+              aria-label="Geslo"
+              placeholder="Geslo"
+              type="password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+            <button type="submit">Prijava</button>
+          </form>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 function DashboardContent() {
-  const [currentDate, setCurrentDate] = useState(() => new Date());
-  const [selectedDate, setSelectedDate] = useState<Date>(() => new Date());
-  const [filter, setFilter] = useState<"all"|"reservations">("all");
+  const [calendarDate, setCalendarDate] = useState(() => new Date());
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const [filter, setFilter] = useState<"all" | "reservations">("all");
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showManualForm, setShowManualForm] = useState(false);
+  const [manualDate, setManualDate] = useState(() => dateKey(new Date()));
+  const [rescheduleId, setRescheduleId] = useState<Id<"reservations"> | null>(
+    null,
+  );
+  const [notice, setNotice] = useState("");
+  const selectedKey = dateKey(selectedDate);
 
-  const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+  const monthDays = useMemo(() => {
+    const first = new Date(
+      calendarDate.getFullYear(),
+      calendarDate.getMonth(),
+      1,
+    );
+    const offset = first.getDay() === 0 ? 6 : first.getDay() - 1;
+    const total = new Date(
+      calendarDate.getFullYear(),
+      calendarDate.getMonth() + 1,
+      0,
+    ).getDate();
+    return [
+      ...Array(offset).fill(null),
+      ...Array.from({ length: total }, (_, index) => index + 1),
+    ];
+  }, [calendarDate]);
 
-  const getWeekDays = () => {
-    const startObj = new Date(selectedDate);
-    
-    const week = [];
-    for (let i = 0; i < 7; i++) {
-      const nextDay = new Date(startObj);
-      nextDay.setDate(startObj.getDate() + i);
-      week.push(nextDay);
-    }
-    return week;
-  };
-
-  const weekDaysArray = useMemo(() => getWeekDays(), [selectedDate]);
-  
-  const weekStartStr = `${weekDaysArray[0].getFullYear()}-${String(weekDaysArray[0].getMonth() + 1).padStart(2, "0")}-${String(weekDaysArray[0].getDate()).padStart(2, "0")}`;
-  const weekEndStr = `${weekDaysArray[6].getFullYear()}-${String(weekDaysArray[6].getMonth() + 1).padStart(2, "0")}-${String(weekDaysArray[6].getDate()).padStart(2, "0")}`;
-
-  const data = useQuery(api.reservations.getDashboardData, { startDate: weekStartStr, endDate: weekEndStr });
+  const week = useMemo(
+    () =>
+      Array.from({ length: 7 }, (_, index) => {
+        const value = new Date(selectedDate);
+        value.setDate(selectedDate.getDate() + index);
+        return value;
+      }),
+    [selectedDate],
+  );
+  const data = useQuery(api.reservations.getDashboardData, {
+    startDate: dateKey(week[0]),
+    endDate: dateKey(week[6]),
+  });
+  const monthStart = dateKey(
+    new Date(calendarDate.getFullYear(), calendarDate.getMonth(), 1),
+  );
+  const monthEnd = dateKey(
+    new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 0),
+  );
+  const monthData = useQuery(api.reservations.getDashboardData, {
+    startDate: monthStart,
+    endDate: monthEnd,
+  });
   const toggleUnavailable = useMutation(api.reservations.toggleUnavailable);
+  const addReservation = useMutation(api.reservations.addReservation);
+  const deleteReservations = useMutation(api.reservations.deleteReservations);
+  const rescheduleReservation = useMutation(
+    api.reservations.rescheduleReservation,
+  );
+  const reservations =
+    data?.reservations.filter((item) => item.date === selectedKey) ?? [];
+  const unavailable =
+    data?.unavailableDates.some((item) => item.date === selectedKey) ?? false;
+  const visibleSlots =
+    filter === "all"
+      ? TIME_SLOTS
+      : TIME_SLOTS.filter((slot) =>
+          reservations.some((item) => item.timeSlot === slot),
+        );
 
-  const getDaysInMonth = (year: number, month: number) => {
-    return new Date(year, month + 1, 0).getDate();
-  };
+  function toggleSelection(id: string) {
+    setSelectedIds((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
-  const getFirstDayOfMonth = (year: number, month: number) => {
-    let day = new Date(year, month, 1).getDay();
-    return day === 0 ? 6 : day - 1; 
-  };
+  async function removeSelected() {
+    if (
+      !selectedIds.size ||
+      !window.confirm(`Izbrišem ${selectedIds.size} izbranih rezervacij?`)
+    )
+      return;
+    await deleteReservations({ ids: [...selectedIds] as Id<"reservations">[] });
+    setSelectedIds(new Set());
+    setNotice("Izbrane rezervacije so izbrisane.");
+  }
 
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth();
-  const daysInMonth = getDaysInMonth(currentYear, currentMonth);
-  const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
+  async function submitManual(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    setNotice("");
+    try {
+      await addReservation({
+        date: manualDate,
+        timeSlot: String(form.get("timeSlot")),
+        name: "Andreja",
+        email: "Andreja",
+        phone: "Andreja",
+        partySize: Number(form.get("partySize")),
+        adminCreated: true,
+      });
+      setShowManualForm(false);
+      setNotice("Rezervacija je dodana.");
+      event.currentTarget.reset();
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "Rezervacije ni bilo mogoče dodati.",
+      );
+    }
+  }
 
-  const daysArray = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < firstDay; i++) arr.push(null);
-    for (let i = 1; i <= daysInMonth; i++) arr.push(i);
-    return arr;
-  }, [daysInMonth, firstDay]);
-
-  const handleDateClick = (day: number) => {
-    const newDate = new Date(currentYear, currentMonth, day);
-    setSelectedDate(newDate);
-  };
-
-  const isUnavailable = data?.unavailableDates?.some(d => d.date === formattedDate);
-
-  const handleNeDelam = async () => {
-    await toggleUnavailable({ date: formattedDate });
-  };
-
-  // Process today's reservations
-  const dailyReservations = data?.reservations?.filter(r => r.date === formattedDate) || [];
-  
-  const displaySlots = filter === "all" ? TIME_SLOTS : TIME_SLOTS.filter(s => dailyReservations.some(r => r.timeSlot === s));
+  async function submitReschedule(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!rescheduleId) return;
+    const form = new FormData(event.currentTarget);
+    try {
+      await rescheduleReservation({
+        id: rescheduleId,
+        date: String(form.get("date")),
+        timeSlot: String(form.get("timeSlot")),
+      });
+      setRescheduleId(null);
+      setSelectedIds(new Set());
+      setNotice("Rezervacija je prestavljena.");
+    } catch (error) {
+      setNotice(
+        error instanceof Error
+          ? error.message
+          : "Rezervacije ni bilo mogoče prestaviti.",
+      );
+    }
+  }
 
   return (
-    <main className={styles.main} style={{ background: "#ffffff" }}>
-      <Navbar hideLinks={true} />
-      <SubHero 
-        title="Zdravo Andreja" 
-        texts={["Dobrodošla v nadzorni plošči"]}
-        imageSrc="/1. copy.jpg"
-        overlayImageSrc="/1.png"
-      />
-
+    <main className={styles.main}>
+      <div className={styles.dashboardHero}>
+        <SubHero
+          title="Zdravo, Andreja"
+          texts={["Dobrodošla v nadzorni plošči rezervacij."]}
+          imageSrc="/1. copy.jpg"
+          overlayImageSrc="/1.png"
+        />
+      </div>
       <div className={styles.dashboardContainer}>
         <div className={styles.grid}>
-          
-          <div className={styles.leftCol}>
-            <h2 className={styles.sectionTitle}>Koledar</h2>
-            
+          <aside className={styles.leftCol}>
+            <p className={styles.kicker}>Izberi datum</p>
+            <h2>Koledar</h2>
             <div className={styles.calendarHeader}>
-              <button className={styles.calendarNavBtn} onClick={() => setCurrentDate(new Date(currentYear, currentMonth - 1, 1))}>&lt;</button>
-              <span>{MONTHS[currentMonth]} {currentYear}</span>
-              <button className={styles.calendarNavBtn} onClick={() => setCurrentDate(new Date(currentYear, currentMonth + 1, 1))}>&gt;</button>
+              <button
+                onClick={() =>
+                  setCalendarDate(
+                    new Date(
+                      calendarDate.getFullYear(),
+                      calendarDate.getMonth() - 1,
+                      1,
+                    ),
+                  )
+                }
+                aria-label="Prejšnji mesec"
+              >
+                ←
+              </button>
+              <strong>
+                {MONTHS[calendarDate.getMonth()]} {calendarDate.getFullYear()}
+              </strong>
+              <button
+                onClick={() =>
+                  setCalendarDate(
+                    new Date(
+                      calendarDate.getFullYear(),
+                      calendarDate.getMonth() + 1,
+                      1,
+                    ),
+                  )
+                }
+                aria-label="Naslednji mesec"
+              >
+                →
+              </button>
             </div>
-
             <div className={styles.weekDays}>
-              {DAYS_OF_WEEK.map(day => <div key={day}>{day}</div>)}
+              {DAYS.map((day) => (
+                <span key={day}>{day}</span>
+              ))}
             </div>
-
             <div className={styles.daysGrid}>
-              {daysArray.map((day, idx) => {
-                if (day === null) return <div key={`empty-${idx}`} />;
-                
-                const thisDateObj = new Date(currentYear, currentMonth, day);
-                const todayObj = new Date();
-                todayObj.setHours(0, 0, 0, 0);
-                const isPast = thisDateObj < todayObj;
-
-                const isSelected = selectedDate.getDate() === day &&
-                  selectedDate.getMonth() === currentMonth &&
-                  selectedDate.getFullYear() === currentYear;
-
+              {monthDays.map((day, index) => {
+                if (day === null) return <span key={`empty-${index}`} />;
+                const dayDate = new Date(
+                  calendarDate.getFullYear(),
+                  calendarDate.getMonth(),
+                  day,
+                );
+                const key = dateKey(dayDate);
+                const hasBooking = monthData?.reservations.some(
+                  (item) => item.date === key,
+                );
                 return (
                   <button
                     key={day}
-                    className={`${styles.dayBtn} ${isSelected ? styles.selected : ""} ${isPast ? styles.pastDay : ""}`}
-                    onClick={() => handleDateClick(day)}
+                    className={key === selectedKey ? styles.selectedDay : ""}
+                    onClick={() => setSelectedDate(dayDate)}
                   >
-                    {day}
+                    <span>{day}</span>
+                    {hasBooking && <i aria-label="Ima rezervacije" />}
                   </button>
                 );
               })}
             </div>
-          </div>
-
-          <div className={styles.rightCol}>
-            <h2 className={styles.sectionTitle}>Pregled tedenja</h2>
-            
-            <div className={styles.weekView}>
-              {weekDaysArray.map((dateObj, i) => {
-                const isSelected = dateObj.toDateString() === selectedDate.toDateString();
-                const dStr = `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 1).padStart(2, "0")}-${String(dateObj.getDate()).padStart(2, "0")}`;
-                const hasBlock = data?.unavailableDates?.some(d => d.date === dStr);
-
-                return (
-                  <div 
-                    key={i} 
-                    className={`${styles.weekDayBox} ${isSelected ? styles.active : ""}`}
-                    onClick={() => setSelectedDate(dateObj)}
-                  >
-                    <div className={styles.weekDayName}>{DAYS_OF_WEEK[(dateObj.getDay() + 6) % 7]}</div>
-                    <div className={styles.weekDayNum}>{dateObj.getDate()}</div>
-                    {hasBlock && <div style={{ fontSize: '0.7rem', color: 'red', marginTop: '4px' }}>Ne delam</div>}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className={styles.actionsBar}>
+          </aside>
+          <section className={styles.rightCol}>
+            <div className={styles.panelHeader}>
               <div>
-                {!isUnavailable ? (
-                  <button className={styles.neDelamBtn} onClick={handleNeDelam}>
-                    Označi "Ne delam"
-                  </button>
-                ) : (
-                  <button className={styles.delamBtn} onClick={handleNeDelam}>
-                    Odstrani "Ne delam"
-                  </button>
-                )}
+                <p className={styles.kicker}>Dnevni pregled</p>
+                <h2>
+                  Rezervacije za {selectedDate.getDate()}.{" "}
+                  {MONTHS[selectedDate.getMonth()]}
+                </h2>
               </div>
-              <select className={styles.filterSelect} value={filter} onChange={e => setFilter(e.target.value as any)}>
-                <option value="all">Vsa okna</option>
-                <option value="reservations">Samo rezervacije</option>
+              <button
+                className={styles.primaryButton}
+                onClick={() => {
+                  setManualDate(selectedKey);
+                  setShowManualForm(true);
+                }}
+              >
+                + Nova rezervacija
+              </button>
+            </div>
+            <div className={styles.weekView}>
+              {week.map((date) => {
+                const key = dateKey(date);
+                const closed = data?.unavailableDates.some(
+                  (item) => item.date === key,
+                );
+                return (
+                  <button
+                    key={key}
+                    className={key === selectedKey ? styles.activeWeekDay : ""}
+                    onClick={() => setSelectedDate(date)}
+                  >
+                    <span>{DAYS[(date.getDay() + 6) % 7]}</span>
+                    <strong>{date.getDate()}</strong>
+                    {closed && <small>Ne delam</small>}
+                  </button>
+                );
+              })}
+            </div>
+            <div className={styles.actionsBar}>
+              <button
+                className={
+                  unavailable ? styles.openButton : styles.closedButton
+                }
+                onClick={() => toggleUnavailable({ date: selectedKey })}
+              >
+                {unavailable ? "Ponovno odpri dan" : "Ne delam"}
+              </button>
+              <select
+                value={filter}
+                onChange={(event) =>
+                  setFilter(event.target.value as "all" | "reservations")
+                }
+              >
+                <option value="all">Vsi termini</option>
+                <option value="reservations">Samo rezervirani</option>
               </select>
             </div>
-
-            <h3 style={{ fontFamily: "var(--font-pt-serif, serif)", color: "#4A4036", marginBottom: "1rem" }}>
-              Aktivne rezervacije za {selectedDate.getDate()}. {MONTHS[selectedDate.getMonth()]}
-            </h3>
-
-            {isUnavailable ? (
-              <p>Na ta dan ne obratujete.</p>
-            ) : (
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Čas</th>
-                    <th>Št. rezervacij</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displaySlots.length === 0 ? (
-                    <tr>
-                      <td colSpan={3}>Ni rezervacij za ta dan.</td>
-                    </tr>
-                  ) : (
-                    displaySlots.map(slot => {
-                      const count = dailyReservations.filter(r => r.timeSlot === slot).length;
-                      return (
-                        <tr key={slot}>
-                          <td>{slot}</td>
-                          <td>
-                            <span className={styles.badge}>{count} / 10</span>
-                          </td>
-                          <td>
-                            {count >= 10 ? <span style={{color: 'red'}}>Polno</span> : count > 0 ? "Delno zasedeno" : "Prosto"}
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
+            {selectedIds.size > 0 && (
+              <div className={styles.selectionBar}>
+                <strong>Izbrano: {selectedIds.size}</strong>
+                <button onClick={removeSelected}>Izbriši</button>
+                <button
+                  disabled={selectedIds.size !== 1}
+                  onClick={() =>
+                    setRescheduleId([...selectedIds][0] as Id<"reservations">)
+                  }
+                >
+                  Prestavi
+                </button>
+              </div>
             )}
-
-          </div>
-
+            {notice && <p className={styles.notice}>{notice}</p>}
+            {unavailable ? (
+              <div className={styles.emptyState}>
+                Ta dan je označen kot »Ne delam«. Rezervacij ni mogoče
+                ustvariti.
+              </div>
+            ) : (
+              <div className={styles.slotList}>
+                {visibleSlots.map((slot) => {
+                  const slotReservations = reservations.filter(
+                    (item) => item.timeSlot === slot,
+                  );
+                  const filled = slotReservations.reduce(
+                    (sum, item) => sum + (item.partySize ?? 1),
+                    0,
+                  );
+                  return (
+                    <section className={styles.slotGroup} key={slot}>
+                      <header>
+                        <div>
+                          <h3>{slot}</h3>
+                          <span>Rezervacija mize</span>
+                        </div>
+                        <strong
+                          className={
+                            filled >= 12
+                              ? styles.fullBadge
+                              : styles.capacityBadge
+                          }
+                        >
+                          {filled} / 12 mest
+                        </strong>
+                      </header>
+                      {slotReservations.length === 0 ? (
+                        <p className={styles.noBookings}>Ni rezervacij.</p>
+                      ) : (
+                        slotReservations.map((reservation) => (
+                          <article
+                            key={reservation._id}
+                            className={styles.bookingRow}
+                          >
+                            <input
+                              aria-label={`Izberi rezervacijo ${reservation.name ?? "brez imena"}`}
+                              type="checkbox"
+                              checked={selectedIds.has(reservation._id)}
+                              onChange={() => toggleSelection(reservation._id)}
+                            />
+                            <button
+                              className={styles.bookingSummary}
+                              onClick={() =>
+                                setExpandedId(
+                                  expandedId === reservation._id
+                                    ? null
+                                    : reservation._id,
+                                )
+                              }
+                            >
+                              <span>
+                                <strong>
+                                  {reservation.name ?? "Ime ni zabeleženo"}
+                                </strong>
+                                <small>
+                                  {reservation.partySize ?? 1}{" "}
+                                  {(reservation.partySize ?? 1) === 1
+                                    ? "oseba"
+                                    : "osebe"}
+                                </small>
+                              </span>
+                              <span className={styles.statusBadge}>
+                                Rezervirano
+                              </span>
+                              <span>•••</span>
+                            </button>
+                            {expandedId === reservation._id && (
+                              <div className={styles.bookingDetails}>
+                                <span>
+                                  <b>Ime</b>
+                                  {reservation.name ?? "Ni podatka"}
+                                </span>
+                                <span>
+                                  <b>E-pošta</b>
+                                  {reservation.email ?? "Ni podatka"}
+                                </span>
+                                <span>
+                                  <b>Telefon</b>
+                                  {reservation.phone ?? "Ni podatka"}
+                                </span>
+                                {reservation.message && (
+                                  <span className={styles.messageDetail}>
+                                    <b>Sporočilo</b>
+                                    {reservation.message}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </article>
+                        ))
+                      )}
+                    </section>
+                  );
+                })}
+              </div>
+            )}
+          </section>
         </div>
       </div>
+      {showManualForm && (
+        <div
+          className={styles.modalBackdrop}
+          onMouseDown={() => setShowManualForm(false)}
+        >
+          <form
+            className={styles.modal}
+            onSubmit={submitManual}
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.closeModal}
+              onClick={() => setShowManualForm(false)}
+            >
+              ×
+            </button>
+            <p className={styles.kicker}>Ročni vnos · Andreja</p>
+            <h2>Nova rezervacija</h2>
+            <label>
+              Število oseb
+              <input
+                name="partySize"
+                type="number"
+                min="1"
+                max="12"
+                defaultValue="1"
+                required
+              />
+            </label>
+            <label>
+              Datum
+              <input
+                type="date"
+                value={manualDate}
+                onChange={(event) => setManualDate(event.target.value)}
+                required
+              />
+              <small>Datum lahko vpišeš ali izbereš z ikono koledarja.</small>
+            </label>
+            <label>
+              Termin
+              <select name="timeSlot">
+                {TIME_SLOTS.map((slot) => (
+                  <option key={slot}>{slot}</option>
+                ))}
+              </select>
+            </label>
+            <button className={styles.primaryButton}>Dodaj rezervacijo</button>
+          </form>
+        </div>
+      )}
+      {rescheduleId && (
+        <div
+          className={styles.modalBackdrop}
+          onMouseDown={() => setRescheduleId(null)}
+        >
+          <form
+            className={styles.modal}
+            onSubmit={submitReschedule}
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.closeModal}
+              onClick={() => setRescheduleId(null)}
+            >
+              ×
+            </button>
+            <p className={styles.kicker}>Sprememba termina</p>
+            <h2>Prestavi rezervacijo</h2>
+            <label>
+              Nov datum
+              <input
+                name="date"
+                type="date"
+                defaultValue={selectedKey}
+                required
+              />
+            </label>
+            <label>
+              Nov termin
+              <select name="timeSlot">
+                {TIME_SLOTS.map((slot) => (
+                  <option key={slot}>{slot}</option>
+                ))}
+              </select>
+            </label>
+            <button className={styles.primaryButton}>Shrani spremembo</button>
+          </form>
+        </div>
+      )}
     </main>
   );
 }
