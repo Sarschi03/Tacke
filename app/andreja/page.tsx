@@ -506,7 +506,6 @@ function DashboardContent() {
                 onChange={(event) => setManualDate(event.target.value)}
                 required
               />
-              <small>Datum lahko vpišeš ali izbereš z ikono koledarja.</small>
             </label>
             <label>
               Termin

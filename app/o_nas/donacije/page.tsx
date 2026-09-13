@@ -15,8 +15,8 @@ export default function DonacijePage() {
     <>
       <Navbar />
       <main className={styles.main}>
-        <SubHero 
-          title={t.pages.donations.subhero_title} 
+        <SubHero
+          title={t.pages.donations.subhero_title}
           texts={[t.pages.donations.subhero_text]}
           imageSrc="/1. copy.jpg"
           overlayImageSrc="/1.png"
@@ -27,13 +27,13 @@ export default function DonacijePage() {
           leftLabel={t.pages.donations.left_label}
           leftTitle={t.pages.donations.left_title}
           rightLabel={t.pages.donations.right_label}
-          rightText={[
-            t.pages.donations.right_p1,
-            t.pages.donations.right_p2,
-          ]}
+          rightText={[t.pages.donations.right_p1, t.pages.donations.right_p2]}
           imageSrc="/1.jpg"
         />
-        <ScrollVelocity texts={[t.pages.donations.scroll_1, t.pages.donations.scroll_2]} className="scrollVelocityText" />
+        <ScrollVelocity
+          texts={[t.pages.donations.scroll_1, t.pages.donations.scroll_2]}
+          className="scrollVelocityText"
+        />
       </main>
       <Footer />
     </>

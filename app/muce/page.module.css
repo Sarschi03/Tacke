@@ -1,124 +1,155 @@
-.hero {
-  background-color: #FAF9F6;
-  padding: 10rem 4rem 5rem;
-  text-align: center;
-}
-
-.heroTitle {
-  font-family: var(--font-geist-sans), sans-serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 600;
-  color: #1a1a1a;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
-  margin-bottom: 1rem;
-}
-
-.heroSub {
-  font-family: var(--font-geist-sans), sans-serif;
-  font-size: 1.1rem;
-  color: #666;
-  font-style: italic;
-}
-
-/* ─── Tiles ─────────────────────────────────────────────── */
 .tilesSection {
-  background-color: #FAF9F6;
-  padding: 10rem 0 8rem;
   overflow: hidden;
+  padding: 10rem 0 8rem;
+  background: #faf9f6;
 }
-
 .wrap {
-  width: 100%;
   display: flex;
+  width: 100%;
   gap: 2rem;
   padding: 0 3rem;
 }
-
 .column {
-  width: 33.333%;
   display: flex;
+  width: 33.333%;
   flex-direction: column;
   gap: 2rem;
   will-change: transform;
 }
-
 .tileWrapper {
   position: relative;
   width: 100%;
   height: 35vw;
-  border-radius: 0;
   overflow: hidden;
+  outline: none;
 }
-
 .tile {
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
   background-color: #e0ddd6;
-  transition: transform 0.5s ease;
+  background-position: center;
+  background-size: cover;
+  transition: transform 0.55s ease;
 }
-
-.tileWrapper:hover .tile {
-  transform: scale(1.05);
-}
-
 .nameOverlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem 1.5rem 1rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  inset: 0;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.25rem, 2.2vw, 2.25rem);
+  color: #fff;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.54) 47%,
+    transparent 82%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
-
-.tileWrapper:hover .nameOverlay {
+.tileWrapper:hover .tile,
+.tileWrapper:focus-visible .tile {
+  transform: scale(1.045);
+}
+.tileWrapper:hover .nameOverlay,
+.tileWrapper:focus-visible .nameOverlay {
   opacity: 1;
 }
-
-.catName {
-  color: white;
-  font-family: var(--font-geist-sans), sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.tileWrapper:focus-visible {
+  box-shadow: inset 0 0 0 2px #fff;
 }
-
-/* ─── Responsive ─────────────────────────────────────────── */
+.catName {
+  margin: 0 0 0.55rem;
+  color: #fff;
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: clamp(1.5rem, 2.3vw, 2.35rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.catMeta {
+  margin: 0 0 0.8rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+.catDescription {
+  max-width: 34rem;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+  line-height: 1.55;
+}
 @media (max-width: 900px) {
+  .tilesSection {
+    padding: 5rem 0;
+  }
   .wrap {
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 1.5rem;
     padding: 0 1.5rem;
-    gap: 4rem 1.5rem; /* Larger row gap to prevent parallax overlap */
   }
-
   .column {
     width: calc(50% - 0.75rem);
-    display: flex;
-    flex-direction: column;
+    transform: none !important;
   }
-
   .tileWrapper {
-    width: 100%;
-    height: 45vw;
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .nameOverlay {
+    opacity: 1;
   }
 }
-
-@media (max-width: 540px) {
-  .column {
-    width: 100%;
+@media (max-width: 768px) {
+  .tilesSection {
+    padding: 3.5rem 0;
   }
-  
+  .wrap {
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding: 0 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .wrap::-webkit-scrollbar {
+    display: none;
+  }
+  .column {
+    display: contents;
+    transform: none !important;
+  }
   .tileWrapper {
-    width: 100%;
-    height: 60vw;
+    flex: 0 0 calc(100vw - 3.75rem);
+    scroll-snap-align: center;
+  }
+  .nameOverlay {
+    padding: 1.4rem;
+  }
+  .catName {
+    font-size: 1.65rem;
+  }
+  .catMeta {
+    font-size: 0.72rem;
+  }
+  .catDescription {
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .nameOverlay {
+    transition: none;
   }
 }

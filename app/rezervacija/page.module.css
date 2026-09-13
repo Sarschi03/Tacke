@@ -98,8 +98,8 @@
 }
 
 .dayBtn.selected {
-  background: #4A4036;
-  color: white;
+  background: #F2EDD9;
+  color: #1a1a1a;
 }
 
 .dayBtn.disabled {
@@ -136,13 +136,13 @@
 }
 
 .slotBtn:hover {
-  background: #4A4036;
-  color: white;
+  background: #F2EDD9;
+  color: #1a1a1a;
 }
 
 .slotBtn.selected {
-  background: #4A4036;
-  color: white;
+  background: #F2EDD9;
+  color: #1a1a1a;
 }
 
 .slotBtn.disabled {
@@ -164,21 +164,24 @@
 }
 
 .submitBtn {
-  background: #BFA58C;
-  color: white;
+  background: #F2EDD9;
+  color: #1a1a1a;
   border: none;
   padding: 1rem;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
   border-radius: 4px;
   transition: background 0.3s ease;
   margin-top: 2rem;
-  font-family: var(--font-pt-serif, serif);
+  font-family: var(--font-geist-sans), sans-serif;
 }
 
 .submitBtn:hover {
-  background: #a98d73;
+  background: #e8e0c4;
 }
 
 .submitBtn:disabled {
@@ -189,9 +192,18 @@
 .reservationForm { display: grid; gap: 1rem; }
 .reservationForm label { display: grid; gap: .4rem; color: #4A4036; font-size: .82rem; font-weight: 650; }
 .reservationForm label span { color: #888; font-size: .72rem; font-weight: 400; }
-.reservationForm input, .reservationForm textarea { width: 100%; padding: .75rem; border: 1px solid #d8d1c8; border-radius: 0; background: #fff; color: #27221e; font: inherit; }
+.reservationForm input, .reservationForm textarea { width: 100%; padding: .75rem; border: 1px solid #4A4036; border-radius: 4px; background: transparent; color: #4A4036; font: inherit; transition: border-color .2s ease, background-color .2s ease; }
 .reservationForm textarea { resize: vertical; min-height: 6rem; }
-.reservationForm input:focus, .reservationForm textarea:focus { outline: 2px solid #BFA58C; outline-offset: 1px; }
+.reservationForm input:focus, .reservationForm textarea:focus { outline: none; border: 1px solid #F2EDD9; background: #fffdf6; }
+.reservationForm input[type="number"] { min-height: 46px; padding-right: 1rem; }
+.reservationForm input[type="number"]::-webkit-inner-spin-button,
+.reservationForm input[type="number"]::-webkit-outer-spin-button {
+  width: 1.5rem;
+  height: 2rem;
+  margin-left: 0.75rem;
+  background: transparent;
+  opacity: 0.7;
+}
 .formStatus { color: #4A4036; font-size: .9rem; line-height: 1.5; }
 
 @media (max-width: 767px) {

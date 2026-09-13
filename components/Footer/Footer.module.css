@@ -1,5 +1,5 @@
 .footer {
-  background-color: #F4F1EA;
+  background-color: #f4f1ea;
   position: relative;
   z-index: 10;
   padding: 3.5rem 6rem 0;
@@ -20,7 +20,9 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .socialIcon:hover {
@@ -32,8 +34,8 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 3rem;                          /* generous gap between columns */
-  align-items: start;                  /* every col starts at the same top */
+  gap: 3rem; /* generous gap between columns */
+  align-items: start; /* every col starts at the same top */
   padding-bottom: 3rem;
   border-bottom: 1px solid rgba(26, 26, 26, 0.15);
 }
@@ -46,6 +48,7 @@
 
 /* All titles: same font, same height — guaranteed alignment */
 .colTitle {
+  display: block;
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
@@ -54,9 +57,10 @@
   text-transform: uppercase;
   /* Fixed line box so every column's first link starts at exactly the same Y */
   line-height: 1.4;
-  height: 1.4em;           /* single line, fixed height */
+  height: 1.4em; /* single line, fixed height */
   margin-bottom: 0.8rem;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .colLink,
@@ -71,10 +75,13 @@
 }
 
 .colLink:hover {
-  color: #8B6F47;
+  color: #8b6f47;
 }
 
 .financialDetails {
+  margin: 0;
+  color: #444;
+  font-family: var(--font-geist-sans), sans-serif;
   font-size: 0.76rem;
   line-height: 1.65;
   white-space: normal;
@@ -133,7 +140,15 @@
 }
 
 @media (max-width: 420px) {
-  .footer { padding-inline: 1.75rem; }
-  .grid { grid-template-columns: 1fr; }
-  .colTitle { height: auto; white-space: normal; }
+  .footer {
+    padding-inline: 2rem;
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.5rem;
+  }
+  .colTitle {
+    height: auto;
+    white-space: normal;
+  }
 }

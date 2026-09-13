@@ -1,7 +1,7 @@
 .container {
   position: relative;
   z-index: 10;
-  background-color: #FAF9F6;
+  background-color: #faf9f6;
   /* Tall so the parallax columns have room to breathe */
   padding: 6rem 0;
   overflow: hidden;
@@ -42,29 +42,45 @@
   }
 
   .wrap {
-    /* Keep horizontal to maintain parallax, just use 2 columns */
-    flex-direction: row;
-    flex-wrap: wrap;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
     padding: 0 1.25rem;
     gap: 1.25rem;
-    justify-content: center;
-    overflow: visible;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
   }
 
   .column {
-    width: calc(50% - 0.625rem);
-    gap: 1.25rem;
+    display: contents;
     transform: none !important;
   }
 
   .tile {
+    flex: 0 0 calc((100vw - 3.75rem) / 2);
     height: auto;
     aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
   }
 }
 
 @media (max-width: 480px) {
-  .container { padding: 2rem 0; }
-  .wrap { padding: 0 1rem; gap: 1rem; }
-  .column { width: calc(50% - 0.5rem); gap: 1rem; }
+  .container {
+    padding: 2rem 0;
+  }
+  .wrap {
+    padding: 0 1.5rem;
+    gap: 1rem;
+  }
+  .tile {
+    flex-basis: calc((100vw - 4rem) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -6,30 +6,30 @@ import SubHero from "../../../components/SubHero/SubHero";
 import InfoSplitSection from "../../../components/InfoSplitSection/InfoSplitSection";
 import ContactForm from "../../../components/ContactForm/ContactForm";
 import styles from "../page.module.css";
-import { useLanguage } from "../../../context/LanguageContext";
 
 export default function ClanstvoPage() {
-  const { t } = useLanguage();
-
   return (
     <>
       <Navbar />
       <main className={styles.main}>
         <SubHero
-          title={t.pages.membership.subhero_title}
-          texts={[t.pages.membership.subhero_text]}
+          title="Članstvo"
+          texts={["Pridruži se nam in postani del naše mačje družine! 🐾"]}
           imageSrc="/1. copy.jpg"
           overlayImageSrc="/1.png"
         />
         <InfoSplitSection
-          topTitle={t.pages.membership.top_title}
-          topRightText={t.pages.membership.top_right}
-          leftLabel={t.pages.membership.left_label}
-          leftTitle={t.pages.membership.left_title}
-          rightLabel={t.pages.membership.right_label}
+          topTitle="Kdo je lahko naš član?"
+          topRightText="Člani društva so lahko državljanke in državljani Republike Slovenije, ki podpišejo pristopno izjavo, želijo postati člani, so seznanjeni s pravili in se bodo po njih ravnali. Če se v društvo včlani mladoletnik do 7. leta starosti, pristopno izjavo podpiše njegov zakoniti zastopnik. Od 7. do 15. leta starosti mora zakoniti zastopnik pred vstopom v društvo podati pisno soglasje."
+          leftLabel="Članarina"
+          leftTitle="Letna članarina: 20 €"
+          rightLabel="Članstvo preneha"
           rightText={[
-            t.pages.membership.right_p1,
-            t.pages.membership.right_p2,
+            "Po sklepu Občnega zbora, 29. 10. 2024. Študentje in brezposelne osebe so oproščene plačevanja članarine.",
+            "• s prostovoljnim izstopom iz društva,",
+            "• s črtanjem iz članstva,",
+            "• z izključitvijo na podlagi sklepa disciplinske komisije,",
+            "• s smrtjo.",
           ]}
           imageSrc="/1.jpg"
         />
