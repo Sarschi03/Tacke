@@ -4,7 +4,6 @@
   width: 100vw;
   height: 100svh;
   z-index: 1;
-
 }
 
 .hero {
@@ -12,7 +11,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  
 }
 
 .backgroundLayer {
@@ -29,7 +27,6 @@
   left: 0;
   width: 100%;
   height: 100%;
- 
 }
 
 .backgroundLayer {
@@ -55,7 +52,9 @@
   transition: opacity 1.2s ease-in-out;
 }
 
-.slideActive { opacity: 1; }
+.slideActive {
+  opacity: 1;
+}
 
 /* ─── Left-side text overlay ─────────────────────────── */
 .heroContent {
@@ -70,6 +69,16 @@
   align-items: flex-start;
   padding: 0 5rem;
   text-align: left;
+}
+
+@media (min-width: 1600px) {
+  .heroContent {
+    max-width: 62rem;
+    padding-left: max(5rem, calc((100vw - 120rem) / 2));
+  }
+  .heroParagraph {
+    max-width: 48rem;
+  }
 }
 
 .heroLabel {
@@ -104,7 +113,7 @@
   display: inline-block;
   margin-top: 1.5rem;
   padding: 0.85rem 2rem;
-  background-color: #F2EDD9;
+  background-color: #f2edd9;
   color: #1a1a1a;
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 0.9rem;
@@ -162,11 +171,20 @@
 }
 
 @media (max-width: 380px), (max-height: 700px) and (max-width: 768px) {
-  .heroLabel { display: none; }
-  .heroTitle { font-size: clamp(1.55rem, 8vw, 2rem); }
-  .heroParagraph { font-size: 0.78rem; line-height: 1.35; }
+  .heroLabel {
+    display: none;
+  }
+  .heroTitle {
+    font-size: clamp(1.55rem, 8vw, 2rem);
+  }
+  .heroParagraph {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide { transition: none; }
+  .slide {
+    transition: none;
+  }
 }

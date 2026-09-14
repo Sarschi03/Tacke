@@ -32,7 +32,8 @@ export const metadata: Metadata = {
       { url: "/logo.png", type: "image/png", sizes: "192x192" },
     ],
     apple: "/logo.png",
-    shortcut: "/logo.png",}
+    shortcut: "/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -41,7 +42,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
+    >
       <body>
         <LanguageProvider>
           <CustomCursor />

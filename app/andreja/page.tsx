@@ -51,6 +51,8 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   async function login(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,6 +62,7 @@ function LoginForm() {
     formData.set("password", password);
     formData.set("flow", "signIn");
     try {
+      localStorage.setItem("andreja_remember_me", String(rememberMe));
       await signIn("password", formData);
       setError("");
     } catch {
@@ -84,14 +87,45 @@ function LoginForm() {
               onChange={(event) => setUsername(event.target.value)}
               required
             />
-            <input
-              aria-label="Geslo"
-              placeholder="Geslo"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
+            <div className={styles.passwordField}>
+              <input
+                aria-label="Geslo"
+                placeholder="Geslo"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className={styles.passwordToggle}
+                onClick={() => setShowPassword((current) => !current)}
+                aria-label={showPassword ? "Skrij geslo" : "Prikaži geslo"}
+                aria-pressed={showPassword}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  aria-hidden="true"
+                >
+                  <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" />
+                  <circle cx="12" cy="12" r="2.75" />
+                  {showPassword && <path d="m4 4 16 16" />}
+                </svg>
+              </button>
+            </div>
+            <label className={styles.rememberRow}>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(event) => setRememberMe(event.target.checked)}
+              />
+              Zapomni si me
+            </label>
             <button type="submit" disabled={submitting}>
               {submitting ? "Prijavljanje ..." : "Prijava"}
             </button>
@@ -208,6 +242,7 @@ function DashboardContent() {
         phone: "Andreja",
         partySize: Number(form.get("partySize")),
         adminCreated: true,
+        message: String(form.get("message") ?? "").trim() || undefined,
       });
       setShowManualForm(false);
       setNotice("Rezervacija je dodana.");
@@ -547,6 +582,14 @@ function DashboardContent() {
                   <option key={slot}>{slot}</option>
                 ))}
               </select>
+            </label>
+            <label>
+              Opomba <small>neobvezno</small>
+              <textarea
+                name="message"
+                rows={3}
+                placeholder="(telefonska številka ali opomba)"
+              />
             </label>
             <button className={styles.primaryButton}>Dodaj rezervacijo</button>
           </form>

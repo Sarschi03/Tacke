@@ -1,7 +1,7 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: #FAF9F6;
+  background-color: #faf9f6;
   position: relative;
   z-index: 10;
   overflow: hidden;
@@ -15,6 +15,12 @@
   margin: 0 auto;
   z-index: 2; /* above tacka */
   padding: 0 4rem;
+}
+
+@media (min-width: 1600px) {
+  .inner {
+    max-width: 94rem;
+  }
 }
 
 /* ─── Intro — mirrors EventsSection .topSection ─────────── */
@@ -61,7 +67,9 @@
 }
 
 .column,
-.section { min-width: 0; }
+.section {
+  min-width: 0;
+}
 
 /* ─── Category header ─────────────────────────────────── */
 .section {
@@ -74,7 +82,7 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #8B6F5C;
+  color: #8b6f5c;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid rgba(139, 111, 92, 0.3);
   padding-bottom: 0.5rem;
@@ -195,14 +203,34 @@
     overflow: visible;
   }
 
-  .introTitle { font-size: clamp(1.9rem, 9vw, 2.6rem); }
-  .introText { font-size: 0.95rem; line-height: 1.55; }
-  .section { margin-bottom: 2.75rem; }
-  .item, .subLabel { font-size: 0.82rem; line-height: 1.75; }
-  .desc { font-size: 0.76rem; }
+  .introTitle {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+  }
+  .introText {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .section {
+    margin-bottom: 2.75rem;
+  }
+  .item,
+  .subLabel {
+    font-size: 0.82rem;
+    line-height: 1.75;
+  }
+  .desc {
+    font-size: 0.76rem;
+  }
 }
 
 @media (max-width: 380px) {
-  .inner, .intro { padding-inline: 1rem; }
-  .item, .subLabel { font-size: 0.76rem; letter-spacing: 0.025em; }
+  .inner,
+  .intro {
+    padding-inline: 1rem;
+  }
+  .item,
+  .subLabel {
+    font-size: 0.76rem;
+    letter-spacing: 0.025em;
+  }
 }

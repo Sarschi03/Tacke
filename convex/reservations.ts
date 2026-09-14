@@ -1,5 +1,6 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 
 const MAX_GUESTS_PER_SLOT = 12;
 const TIME_SLOTS = ["16:15-17:15", "17:30-18:30", "18:45-19:45"];
@@ -87,7 +88,7 @@ export const addReservation = mutation({
       throw new Error("V tem terminu ni dovolj prostih mest.");
     }
 
-    await ctx.db.insert("reservations", {
+    const reservationId = await ctx.db.insert("reservations", {
       date: args.date,
       timeSlot: args.timeSlot,
       status: "active",
@@ -98,6 +99,20 @@ export const addReservation = mutation({
       adminCreated: args.adminCreated,
       message: args.message?.trim() || undefined,
     });
+
+    await ctx.scheduler.runAfter(0, internal.emails.sendReservationEmails, {
+      reservationId,
+      date: args.date,
+      timeSlot: args.timeSlot,
+      name: args.name.trim(),
+      email: args.email.trim(),
+      phone: args.phone.trim(),
+      partySize: args.partySize,
+      adminCreated: args.adminCreated,
+      message: args.message?.trim() || undefined,
+    });
+
+    return reservationId;
   },
 });
 

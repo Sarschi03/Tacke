@@ -9,6 +9,16 @@
   gap: 2rem;
   padding: 0 3rem;
 }
+
+@media (min-width: 1600px) {
+  .wrap {
+    max-width: 120rem;
+    margin-inline: auto;
+  }
+  .tileWrapper {
+    height: 44rem;
+  }
+}
 .column {
   display: flex;
   width: 33.333%;

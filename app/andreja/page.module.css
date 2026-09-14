@@ -54,7 +54,8 @@
 }
 .loginBox input,
 .modal input,
-.modal select {
+.modal select,
+.modal textarea {
   width: 100%;
   padding: 0.85rem 0;
   border: 0;
@@ -63,12 +64,55 @@
   color: #101832;
   font: inherit;
 }
+.modal textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
 .loginBox input {
   padding: 0.5rem 0;
   border-bottom-color: #000;
   color: #000;
   font-family: var(--font-pt-serif, serif);
   font-size: 1rem;
+}
+.passwordField {
+  position: relative;
+}
+.passwordField input {
+  padding-right: 2.5rem;
+}
+.loginBox .passwordToggle {
+  position: absolute;
+  right: 0;
+  bottom: 0.15rem;
+  width: 2.25rem;
+  margin: 0;
+  padding: 0.35rem;
+  border: 0;
+  background: transparent;
+  color: #000;
+  font-size: 1.25rem;
+}
+.loginBox .passwordToggle:hover {
+  background: transparent;
+  color: #2478ff;
+}
+.loginBox .rememberRow {
+  display: flex;
+  grid-template-columns: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+  color: #202020;
+  font-family: var(--font-pt-serif, serif);
+  font-size: 0.92rem;
+  font-weight: 400;
+}
+.loginBox .rememberRow input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #2478ff;
 }
 .loginBox input:focus {
   outline: 0;

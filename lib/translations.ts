@@ -109,6 +109,8 @@ export interface Translations {
     contact: string;
     everyDay: string;
     hoursVal: string;
+    privacy: string;
+    cookies: string;
   };
   map: {
     title_location: string;
@@ -319,6 +321,8 @@ export const translations: Record<Language, Translations> = {
       contact: "KONTAKT",
       everyDay: "Vsak dan",
       hoursVal: "16.15 – 19.45",
+      privacy: "Politika zasebnosti",
+      cookies: "Piškotki",
     },
     map: {
       title_location: "Naša lokacija",
@@ -352,7 +356,7 @@ export const translations: Record<Language, Translations> = {
         top_right:
           "Člani društva so lahko državljanke in državljani Republike Slovenije, ki podpišejo pristopno izjavo, želijo postati člani, so seznanjeni s pravili in se bodo po njih ravnali. Če se v društvo včlani mladoletnik do 7. leta starosti, pristopno izjavo podpiše njegov zakoniti zastopnik. Od 7. do 15. leta starosti mora zakoniti zastopnik pred vstopom v društvo podati pisno soglasje.",
         left_label: "Članarina",
-        left_title: "Letna članarina: 20 €",
+        left_title: "Letna članarina: 5 €",
         right_label: "Članstvo preneha",
         right_p1:
           "Po sklepu Občnega zbora, 29. 10. 2024. Študentje in brezposelne osebe so oproščene plačevanja članarine.",
@@ -553,6 +557,8 @@ export const translations: Record<Language, Translations> = {
       contact: "CONTACT",
       everyDay: "Every day",
       hoursVal: "16.15 – 19.45",
+      privacy: "Privacy policy",
+      cookies: "Cookies",
     },
     map: {
       title_location: "Our location",
@@ -586,7 +592,7 @@ export const translations: Record<Language, Translations> = {
         top_right:
           "Members of the association may be citizens of the Republic of Slovenia who sign an application form, wish to become members, understand the rules and agree to follow them. If a child under the age of 7 joins the association, the application form must be signed by their legal representative. Between the ages of 7 and 15, the legal representative must provide written consent before the child joins the association.",
         left_label: "Membership fee",
-        left_title: "Annual membership fee: €20",
+        left_title: "Annual membership fee: €5",
         right_label: "Termination of membership",
         right_p1:
           "As resolved by the General Assembly on 29 October 2024. Students and unemployed persons are exempt from paying the membership fee.",
@@ -788,6 +794,8 @@ export const translations: Record<Language, Translations> = {
       contact: "KONTAKT",
       everyDay: "Täglich",
       hoursVal: "16.15 – 19.45",
+      privacy: "Datenschutzerklärung",
+      cookies: "Cookies",
     },
     map: {
       title_location: "Unser Standort",
@@ -824,7 +832,7 @@ export const translations: Record<Language, Translations> = {
         top_right:
           "Mitglieder des Vereins können Bürgerinnen und Bürger der Republik Slowenien werden, die eine Beitrittserklärung unterzeichnen, Mitglied werden möchten, die Regeln kennen und sich verpflichten, diese einzuhalten. Tritt ein Kind unter 7 Jahren dem Verein bei, unterzeichnet die gesetzliche Vertretung die Beitrittserklärung. Im Alter von 7 bis 15 Jahren muss die gesetzliche Vertretung vor dem Beitritt eine schriftliche Zustimmung erteilen.",
         left_label: "Mitgliedsbeitrag",
-        left_title: "Jährlicher Mitgliedsbeitrag: 20 €",
+        left_title: "Jährlicher Mitgliedsbeitrag: 5 €",
         right_label: "Beendigung der Mitgliedschaft",
         right_p1:
           "Gemäß Beschluss der Generalversammlung vom 29. Oktober 2024. Studierende und arbeitslose Personen sind von der Zahlung des Mitgliedsbeitrags befreit.",

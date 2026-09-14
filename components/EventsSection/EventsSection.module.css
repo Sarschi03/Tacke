@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  background-color: #FAF9F6;
+  background-color: #faf9f6;
   position: relative;
   z-index: 10;
   padding: 8rem 4rem;
@@ -16,6 +16,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
+}
+
+@media (min-width: 1600px) {
+  .topSection,
+  .bottomSection {
+    width: min(100%, 106rem);
+    margin-inline: auto;
+  }
 }
 
 .topLeft {
@@ -78,7 +86,9 @@
   gap: 2rem;
 }
 
-.bottomSection { grid-template-columns: minmax(0, 34rem); }
+.bottomSection {
+  grid-template-columns: minmax(0, 34rem);
+}
 
 .card {
   display: flex;
@@ -90,7 +100,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4/5;
- 
+
   overflow: hidden;
   background-color: #e0ddd6;
 }

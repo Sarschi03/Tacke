@@ -108,7 +108,9 @@ export default function Footer() {
         <div className={styles.col}>
           <h3 className={styles.colTitle}>{t.footer.hours}</h3>
           <p className={styles.colText}>{t.footer.everyDay}</p>
-          <p className={styles.colText}>{t.footer.hoursVal}</p>
+          <p className={styles.colText}>16:15–17:15</p>
+          <p className={styles.colText}>17:30–18:30</p>
+          <p className={styles.colText}>18:45–19:45</p>
         </div>
 
         {/* Col 4 – Lokacija */}
@@ -130,7 +132,12 @@ export default function Footer() {
           <a href="tel:041374434" className={styles.colLink}>
             041 374 434
           </a>
-          <br />
+          <a
+            href="mailto:drustvo.macjetacke@gmail.com"
+            className={styles.colLink}
+          >
+            drustvo.macjetacke@gmail.com
+          </a>
           <p className={styles.financialDetails}>
             TRR SI56 6100 0002 9754 224 <br /> Delavska hranilnica DD
             <br />
@@ -144,6 +151,10 @@ export default function Footer() {
       </div>
 
       <div className={styles.wordmark}>tacke</div>
+      <nav className={styles.legalLinks} aria-label="Pravne informacije">
+        <Link href="/politika-zasebnosti">{t.footer.privacy}</Link>
+        <Link href="/piskotki">{t.footer.cookies}</Link>
+      </nav>
     </footer>
   );
 }

@@ -2,7 +2,7 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  background-color: #F4F1EA;
+  background-color: #f4f1ea;
   color: #1a1a1a;
   font-family: var(--font-geist-sans), sans-serif;
 }
@@ -11,6 +11,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   position: relative;
+}
+
+@media (min-width: 1600px) {
+  .splitSection {
+    max-width: 120rem;
+    margin: 0 auto;
+  }
 }
 
 .leftColumn {
@@ -85,7 +92,7 @@
   position: relative;
   width: 60%; /* Made smaller as requested */
   aspect-ratio: 4/5;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   margin-top: 1rem;
 }
 
@@ -93,12 +100,12 @@
   .splitSection {
     grid-template-columns: 1fr;
   }
-  
+
   .stickyImage {
     position: relative;
     height: 50vh;
   }
-  
+
   .contentBlock {
     min-height: auto;
     padding: 5rem 1.5rem;
@@ -118,7 +125,7 @@
   display: inline-block;
   margin-top: 1rem;
   padding: 0.85rem 2rem;
-  background-color: #F2EDD9;
+  background-color: #f2edd9;
   color: #1a1a1a;
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 0.9rem;

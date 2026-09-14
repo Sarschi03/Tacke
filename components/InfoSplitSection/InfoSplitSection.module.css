@@ -1,5 +1,5 @@
 .container {
-  background-color: #FAF9F6;
+  background-color: #faf9f6;
   padding: 8rem 4rem;
   color: #1a1a1a;
   font-family: var(--font-geist-sans), sans-serif;
@@ -12,6 +12,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
+}
+
+@media (min-width: 1600px) {
+  .topSection,
+  .bottomSection {
+    width: min(100%, 106rem);
+    margin-inline: auto;
+  }
 }
 
 .topLeft {
@@ -94,25 +102,25 @@
 }
 
 @media (max-width: 900px) {
-  .container { 
-    padding: 4rem 2rem; 
-    gap: 4rem; 
+  .container {
+    padding: 4rem 2rem;
+    gap: 4rem;
   }
-  
-  .topSection { 
-    grid-template-columns: 1fr; 
+
+  .topSection {
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .topLeft {
     padding-right: 0;
   }
-  
-  .bottomSection { 
-    grid-template-columns: 1fr; 
+
+  .bottomSection {
+    grid-template-columns: 1fr;
   }
-  
-  .bottomRight { 
-    grid-template-columns: 1fr; 
+
+  .bottomRight {
+    grid-template-columns: 1fr;
   }
 }
