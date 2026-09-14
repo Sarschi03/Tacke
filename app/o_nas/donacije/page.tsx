@@ -28,7 +28,7 @@ export default function DonacijePage() {
           leftTitle={t.pages.donations.left_title}
           rightLabel={t.pages.donations.right_label}
           rightText={[t.pages.donations.right_p1, t.pages.donations.right_p2]}
-          imageSrc="/1.jpg"
+          imageSrc="/5.jpg"
         />
         <ScrollVelocity
           texts={[t.pages.donations.scroll_1, t.pages.donations.scroll_2]}

@@ -29,7 +29,7 @@ export default function ClanstvoPage() {
           leftTitle={membership.left_title}
           rightLabel={membership.right_label}
           rightText={[membership.right_p1, membership.right_p2]}
-          imageSrc="/1.jpg"
+          imageSrc="/4.jpg"
         />
         <section className={membershipStyles.downloadSection}>
           <a
