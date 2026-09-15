@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import SubHero from "../../components/SubHero/SubHero";
 import styles from "./page.module.css";
 import { useMutation, useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
@@ -280,14 +279,6 @@ function DashboardContent() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.dashboardHero}>
-        <SubHero
-          title="Zdravo, Andreja"
-          texts={["Dobrodošla v nadzorni plošči rezervacij."]}
-          imageSrc="/1. copy.jpg"
-          overlayImageSrc="/1.png"
-        />
-      </div>
       <div className={styles.dashboardContainer}>
         <div className={styles.grid}>
           <aside className={styles.leftCol}>

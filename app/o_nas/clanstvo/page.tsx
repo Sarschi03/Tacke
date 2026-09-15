@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import SubHero from "../../../components/SubHero/SubHero";
 import InfoSplitSection from "../../../components/InfoSplitSection/InfoSplitSection";
+import ContactForm from "../../../components/ContactForm/ContactForm";
 import { useLanguage } from "../../../context/LanguageContext";
 import styles from "../page.module.css";
 import membershipStyles from "./page.module.css";
@@ -31,6 +32,7 @@ export default function ClanstvoPage() {
           rightText={[membership.right_p1, membership.right_p2]}
           imageSrc="/4.jpg"
         />
+        <ContactForm />
         <section className={membershipStyles.downloadSection}>
           <a
             className={membershipStyles.downloadButton}

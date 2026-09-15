@@ -152,8 +152,11 @@ export interface Translations {
       form_basic: string;
       form_premium: string;
       form_email: string;
+      form_phone: string;
+      form_address: string;
       form_msg: string;
       form_send: string;
+      form_success: string;
     };
     donations: {
       subhero_title: string;
@@ -236,7 +239,7 @@ export const translations: Record<Language, Translations> = {
       b3_btn: "Rezervirajte obisk",
     },
     events: {
-      top_title: "Dogodki & novosti.",
+      top_title: "Dogodki & novice",
       top_text:
         "Pridružite se nam na posebnih prireditvah, delavnicah in srečanjih — za ljubitelje mačk in tiste, ki to šele postajajo.",
       label: "Prihajajoči dogodki",
@@ -370,8 +373,11 @@ export const translations: Record<Language, Translations> = {
         form_basic: "Osnovno članstvo",
         form_premium: "Premium članstvo",
         form_email: "Email (obvezno)",
+        form_phone: "Telefonska številka (obvezno)",
+        form_address: "Naslov stalnega prebivališča (obvezno)",
         form_msg: "Vaše sporočilo",
         form_send: "Pošlji",
+        form_success: "Pristopna izjava je uspešno oddana.",
       },
       donations: {
         subhero_title: "Donacije",
@@ -405,7 +411,7 @@ export const translations: Record<Language, Translations> = {
         subhero_text: "Stopite v stik z nami ali nas obiščite v Mariboru.",
       },
       reservation: {
-        subhero_title: "Načrtujte vašo storitev",
+        subhero_title: "Načrtujte vaš obisk.",
         subhero_text:
           "Preverite našo razpoložljivost in rezervirajte datum in uro, ki vam ustrezata",
         pick_date_time: "Izberite datum in uro",
@@ -472,7 +478,7 @@ export const translations: Record<Language, Translations> = {
       b3_btn: "Book a visit",
     },
     events: {
-      top_title: "Events & News.",
+      top_title: "Events & news",
       top_text:
         "Join us for special events, workshops, and gatherings — for cat lovers and those who are just about to become one.",
       label: "Upcoming events",
@@ -606,8 +612,11 @@ export const translations: Record<Language, Translations> = {
         form_basic: "Basic membership",
         form_premium: "Premium membership",
         form_email: "Email (required)",
+        form_phone: "Phone number (required)",
+        form_address: "Permanent address (required)",
         form_msg: "Your message",
         form_send: "Submit",
+        form_success: "Your membership application has been submitted.",
       },
       donations: {
         subhero_title: "Donations",
@@ -707,7 +716,7 @@ export const translations: Record<Language, Translations> = {
       b3_btn: "Besuch buchen",
     },
     events: {
-      top_title: "Events & Neuigkeiten.",
+      top_title: "Veranstaltungen & Neuigkeiten",
       top_text:
         "Nehmen Sie an unseren besonderen Veranstaltungen, Workshops und Treffen teil — für Katzenliebhaber und solche, die es noch werden wollen.",
       label: "Kommende Veranstaltungen",
@@ -846,8 +855,11 @@ export const translations: Record<Language, Translations> = {
         form_basic: "Basismitgliedschaft",
         form_premium: "Premium-Mitgliedschaft",
         form_email: "E-Mail (erforderlich)",
+        form_phone: "Telefonnummer (erforderlich)",
+        form_address: "Ständige Anschrift (erforderlich)",
         form_msg: "Ihre Nachricht",
         form_send: "Absenden",
+        form_success: "Ihr Mitgliedsantrag wurde erfolgreich übermittelt.",
       },
       donations: {
         subhero_title: "Spenden",

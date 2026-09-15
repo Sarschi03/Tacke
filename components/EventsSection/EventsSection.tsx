@@ -1,34 +1,22 @@
 "use client";
-
-import React from 'react';
-import Image from 'next/image';
-import styles from './EventsSection.module.css';
-import { useLanguage } from '../../context/LanguageContext';
+import Link from "next/link";
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import styles from "./EventsSection.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function EventsSection() {
   const { t } = useLanguage();
-
-  const events = [
-    {
-      image: '/1. copy.jpg',
-      heading: t.events.card1_title,
-      text: t.events.card1_text,
-    },
-    {
-      image: '/1_2.jpg',
-      heading: t.events.card2_title,
-      text: t.events.card2_text,
-    },
-    {
-      image: '/1..jpg',
-      heading: t.events.card3_title,
-      text: t.events.card3_text,
-    },
-  ];
-
+  const events = useQuery(api.events.listPublished);
+  const today = new Date().toISOString().slice(0, 10);
+  const current =
+    events
+      ?.filter(
+        (item) => item.isNews || !item.eventDate || item.eventDate >= today,
+      )
+      .slice(0, 3) ?? [];
   return (
     <section className={styles.container}>
-      {/* Top row — mirrors InfoSplitSection topSection */}
       <div className={styles.topSection}>
         <div className={styles.topLeft}>
           <h2 className={styles.topTitle}>{t.events.top_title}</h2>
@@ -37,30 +25,35 @@ export default function EventsSection() {
           <p className={styles.topRightText}>{t.events.top_text}</p>
         </div>
       </div>
-
-      {/* Bottom row — label left + event cards right */}
       <div className={styles.bottomSection}>
         <div className={styles.bottomLeft}>
           <h3 className={styles.label}>{t.events.label}</h3>
           <h2 className={styles.leftTitle}>{t.events.left_title}</h2>
+          {current.length > 0 && (
+            <Link href="/dogodki">Poglej vse dogodke</Link>
+          )}
         </div>
-
         <div className={styles.cardsRow}>
-          {events.map((ev, i) => (
-            <div key={i} className={styles.card}>
+          {current.map((item) => (
+            <Link
+              href={`/dogodki/${item._id}`}
+              key={item._id}
+              className={styles.card}
+            >
               <div className={styles.cardImageWrapper}>
-                <Image
-                  src={ev.image}
-                  alt={ev.heading}
-                  fill
-                  className={styles.cardImage}
-                />
+                {item.imageUrl && (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className={styles.cardImage}
+                  />
+                )}
               </div>
               <div className={styles.cardBody}>
-                <h4 className={styles.cardHeading}>{ev.heading}</h4>
-                <p className={styles.cardText}>{ev.text}</p>
+                <h4 className={styles.cardHeading}>{item.title}</h4>
+                <p className={styles.cardText}>{item.shortDescription}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

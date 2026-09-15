@@ -43,22 +43,21 @@ const columns: Cat[][] = [
     {
       name: "Blanka",
       image: "/blanka.jpg",
-      meta: "6. 5. 2026 ",
+      meta: "",
       description:
-        "Lola je naša novorojenka. Cartljiva, igriva, njena mamica je naša Freya, ata pa naš Henrik.",
+        "Blanka je rodovniška muca, ki prihaja iz Zemuna v Beogradu. Že od samega začetka je bila nežna, prikupna in posebna, vendar jo je žal spremljalo tudi zahtevno zdravstveno obdobje. Spopada se z močnimi alergijami, zaradi katerih se še vedno zdravi in potrebuje posebno nego, veliko potrpežljivosti ter ljubezni. Kljub vsem težavam ostaja izjemno nežna, prijazna in srčna muca, ki s svojo prisotnostjo hitro očara vsakogar.",
     },
     {
-      name: "Čoko",
+      name: "Čoko †",
       image: "/coko.jpg",
       meta: "",
       description: "",
     },
     {
-      name: "Dodaj ime 1",
-      image: "/a.jpg",
-      meta: "Dodaj datum in kraj",
-      description: "Tukaj dodaj opis muce.",
-      hidden: true,
+      name: "Kena",
+      image: "/kena.jpg",
+      meta: "",
+      description: "",
     },
   ],
   [
@@ -88,20 +87,20 @@ const columns: Cat[][] = [
       image: "/lola.jpg",
       meta: "6. 5. 2026 ",
       description:
-        "Lola je naša novorojenka. Cartljiva, igriva, njena mamica je naša Freya, ata pa naš Henrik.",
+        "Lola je naša čudovita mladenka, hčerka nežne Freye in očarljivega očeta Henrika. Od prvih dni naprej nas navdušuje s svojo radovednostjo, nežnostjo in igrivim značajem. Vsak njen pogled, poskok in nagajiv nasmeh nam polepša dan. Lola je prava mala princeska, ki v naš dom prinaša ogromno veselja, topline in ljubezni.",
     },
     {
       name: "daisy",
       image: "/daisy.jpg",
-      meta: "3.4.2026",
-      description: "",
+      meta: "",
+      description:
+        "Daisy je nežna, elegantna in prijazna muca, ki s svojim toplim pogledom hitro osvoji srca. Je skrbna in predana mama, ki z veliko ljubezni skrbi za svoje mladičke ter jim daje občutek varnosti. Čeprav je zelo ljubka, ima tudi svojo voljo. Včasih uživa v božanju, drugič pa si želi miru in prostora zase. Prav zaradi te samosvojosti je še posebej posebna.",
     },
     {
-      name: "Dodaj ime 4",
-      image: "/d.jpeg",
-      meta: "Dodaj datum in kraj",
-      description: "Tukaj dodaj opis muce.",
-      hidden: true,
+      name: "Creamy",
+      image: "/creamy.jpg",
+      meta: "",
+      description: "",
     },
   ],
   [
@@ -137,9 +136,60 @@ const columns: Cat[][] = [
     {
       name: "Katy",
       image: "/katy.jpg",
-      meta: "6. 5. 2026 ",
+      meta: " ",
       description:
-        "Lola je naša novorojenka. Cartljiva, igriva, njena mamica je naša Freya, ata pa naš Henrik.",
+        "Katy je bila na začetku naša glavna športnica. Z veliko energije in navdušenja je neutrudno vrtela kolo ter skrbela, da je bilo v našem mačjem svetu vedno dovolj gibanja in živahnosti. Danes je šport nekoliko opustila, saj je odkrila še eno veliko strast – crkljanje. Katy se zdaj še raje kot telovadbi posveča nežnim dotikom, pozornosti in cartanju. Ko si zaželi bližine, to pokaže zelo jasno in strastno – njena ljubezen do ljudi je iskrena, topla in neizmerna.",
+    },
+  ],
+];
+
+const otherAnimals: Cat[][] = [
+  [
+    {
+      name: "Xena in Arija",
+      image: "/xena.jpg",
+      meta: "",
+      description:
+        "Xena in Aria sta naši prikupni bradati agami, ki sta s svojim mirnim značajem in zanimivim vedenjem osvojili prav vsakogar. Obe sta navajeni ljudi in tudi mačk, saj jih vsak dan opazujeta in sta vajeni njihove prisotnosti. Aria je od Xene mlajša približno dva meseca, vendar je kljub temu večja od nje. Prav zaradi tega sta si še posebej zanimivi – vsaka ima svoj značaj in svojo posebno podobo.",
+    },
+    {
+      name: "Ginko in Blue",
+      image: "/ginko.jpg",
+      meta: "",
+      description:
+        "Grinko in Blue sta prav posebni papigi, ki s svojo prikupnostjo hitro osvojita vsakogar. Živita med mačkami, zato sta se od njiju naučili nekaj prav nenavadnega – posnemata mačje petje! Ko se oglasita, je njuno petje tako ljubko in zabavno, da človek skoraj ne more verjeti svojim ušesom. Namesto običajnega oglašanja papig lahko pri njiju slišimo zvoke, ki spominjajo na mačje mijavkanje in predenje.",
+    },
+  ],
+  [
+    {
+      name: "Lakotka in Slowko",
+      image: "/slowko.jpg",
+      meta: "",
+      description:
+        "Lakotka in Slowko sta prav posebni želvi, ki s svojim vedenjem hitro osvojita vsakogar. Lakotka je dobila ime zato, ker skoraj ves čas samo je. Slowko pa je pravi počasnež. Premika se počasi in umirjeno, kot se za želvo tudi spodobi.",
+    },
+    {
+      name: "3 Pajolanke in gupiji",
+      image: "/gupi.jpg",
+      meta: "",
+      description:
+        "Pajcolanke z velikimi možgani in gupiji živijo skupaj v čudovitem sožitju v akvariju. Vsaka žival ima svojo posebno vlogo, skupaj pa ustvarjajo miren in zanimiv podvodni svet. Pajcolanke so radovedne in bistre, gupiji pa živahni, pisani ter vedno pripravljeni na raziskovanje. Čeprav so si med seboj različni, se lepo dopolnjujejo in mirno sobivajo.",
+    },
+  ],
+  [
+    {
+      name: "Jackson",
+      image: "/jackson.jpg",
+      meta: "",
+      description:
+        "Jackson je pravi posebnež med našimi živalmi. Je najbolj cartljiv, najbolj glasen in zagotovo eden najbolj prepoznavnih prebivalcev našega kotička. Njegovo kukurikanje je skoraj nemogoče spregledati – oziroma preslišati! Ko se oglasi Jackson, vsi vemo, kdo je glavni.",
+    },
+    {
+      name: "Yuki Kuro",
+      image: "/kuro.jpg",
+      meta: "",
+      description:
+        "Ob Jacksonu sta njegovi dve zvesti prijateljici, s katerima tvori prav posebno trojico.",
     },
   ],
 ];
@@ -194,6 +244,14 @@ export default function MucePage() {
             <TileColumn cats={columns[0]} speed={1} />
             <TileColumn cats={columns[1]} speed={-1} />
             <TileColumn cats={columns[2]} speed={1} />
+          </div>
+        </section>
+        <section className={`${styles.tilesSection} ${styles.otherSection}`}>
+          <h2 className={styles.sectionTitle}>Naše druge živali</h2>
+          <div className={styles.wrap}>
+            <TileColumn cats={otherAnimals[0]} speed={1} />
+            <TileColumn cats={otherAnimals[1]} speed={-1} />
+            <TileColumn cats={otherAnimals[2]} speed={1} />
           </div>
         </section>
       </main>
