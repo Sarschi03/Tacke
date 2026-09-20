@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import styles from './Hero.module.css';
-import { useLanguage } from '../../context/LanguageContext';
+import React, { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import styles from "./Hero.module.css";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,7 +14,7 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const { t } = useLanguage();
 
-  const heroImages = ['/3.jpg', '/4.jpg', '/5.jpg', '/6.jpg'];
+  const heroImages = ["/3.jpg", "/5.jpg", "/6.jpg"];
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -25,7 +25,7 @@ export default function Hero() {
   }, [heroImages.length]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
 
       if (!zoomRef.current) return;
@@ -42,8 +42,8 @@ export default function Hero() {
               start: 0,
               end: () => window.innerHeight,
               scrub: true,
-            }
-          }
+            },
+          },
         );
       });
 
@@ -53,10 +53,7 @@ export default function Hero() {
 
   return (
     <section className={styles.heroStickyWrapper}>
-      <div
-        className={styles.hero}
-        ref={containerRef}
-      >
+      <div className={styles.hero} ref={containerRef}>
         <div className={styles.backgroundLayer}>
           <div className={styles.zoomLayer} ref={zoomRef}>
             {heroImages.map((src, index) => (
@@ -67,13 +64,11 @@ export default function Hero() {
                 fill
                 priority={index === 0}
                 sizes="100vw"
-                className={`${styles.image} ${styles.slide} ${index === activeSlide ? styles.slideActive : ''}`}
+                className={`${styles.image} ${styles.slide} ${index === activeSlide ? styles.slideActive : ""}`}
               />
             ))}
           </div>
         </div>
-        <div className={styles.imageOverlay} aria-hidden="true" />
-
         {/* Left-side text overlay positioned lower */}
         <div className={styles.heroContent}>
           <p className={styles.heroLabel}>{t.hero.label}</p>

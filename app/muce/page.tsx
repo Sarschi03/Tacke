@@ -1,6 +1,6 @@
 "use client";
 
-import { RefObject, useRef } from "react";
+import { RefObject, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -48,8 +48,8 @@ const columns: Cat[][] = [
         "Blanka je rodovniška muca, ki prihaja iz Zemuna v Beogradu. Že od samega začetka je bila nežna, prikupna in posebna, vendar jo je žal spremljalo tudi zahtevno zdravstveno obdobje. Spopada se z močnimi alergijami, zaradi katerih se še vedno zdravi in potrebuje posebno nego, veliko potrpežljivosti ter ljubezni. Kljub vsem težavam ostaja izjemno nežna, prijazna in srčna muca, ki s svojo prisotnostjo hitro očara vsakogar.",
     },
     {
-      name: "Čoko †",
-      image: "/coko.jpg",
+      name: "Creamy",
+      image: "/creamy.jpg",
       meta: "",
       description: "",
     },
@@ -97,10 +97,10 @@ const columns: Cat[][] = [
         "Daisy je nežna, elegantna in prijazna muca, ki s svojim toplim pogledom hitro osvoji srca. Je skrbna in predana mama, ki z veliko ljubezni skrbi za svoje mladičke ter jim daje občutek varnosti. Čeprav je zelo ljubka, ima tudi svojo voljo. Včasih uživa v božanju, drugič pa si želi miru in prostora zase. Prav zaradi te samosvojosti je še posebej posebna.",
     },
     {
-      name: "Creamy",
-      image: "/creamy.jpg",
+      name: "Čoko †",
+      image: "/coko.jpg",
       meta: "",
-      description: "",
+      description: "V večni spomin",
     },
   ],
   [
@@ -196,6 +196,7 @@ const otherAnimals: Cat[][] = [
 
 function TileColumn({ cats, speed }: { cats: Cat[]; speed: number }) {
   const ref = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
+  const [expandedCat, setExpandedCat] = useState<string | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -211,13 +212,37 @@ function TileColumn({ cats, speed }: { cats: Cat[]; speed: number }) {
       {cats
         .filter((cat) => !cat.hidden)
         .map((cat) => (
-          <article key={cat.name} className={styles.tileWrapper} tabIndex={0}>
+          <article
+            key={cat.name}
+            className={`${styles.tileWrapper} ${
+              expandedCat === cat.name ? styles.expanded : ""
+            }`}
+            tabIndex={0}
+            role="button"
+            aria-expanded={expandedCat === cat.name}
+            onClick={() =>
+              setExpandedCat((current) =>
+                current === cat.name ? null : cat.name,
+              )
+            }
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setExpandedCat((current) =>
+                  current === cat.name ? null : cat.name,
+                );
+              }
+            }}
+          >
             <div
               className={styles.tile}
               style={{ backgroundImage: `url(${cat.image})` }}
             />
             <div className={styles.nameOverlay}>
               <h2 className={styles.catName}>{cat.name}</h2>
+              <p className={styles.mobileMore}>
+                več <span aria-hidden="true">↑</span>
+              </p>
               <p className={styles.catMeta}>{cat.meta}</p>
               <p className={styles.catDescription}>{cat.description}</p>
             </div>

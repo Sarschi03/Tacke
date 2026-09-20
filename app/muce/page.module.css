@@ -109,6 +109,9 @@
   font-size: clamp(0.9rem, 1.05vw, 1.05rem);
   line-height: 1.55;
 }
+.mobileMore {
+  display: none;
+}
 @media (max-width: 900px) {
   .tilesSection {
     padding: 5rem 0;
@@ -167,6 +170,34 @@
   }
   .nameOverlay {
     padding: 1.4rem;
+  }
+  .mobileMore {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .mobileMore span {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-style: normal;
+    transform: rotate(45deg);
+    transform-origin: center;
+  }
+  .nameOverlay .catMeta,
+  .nameOverlay .catDescription {
+    display: none;
+  }
+  .expanded .mobileMore {
+    display: none;
+  }
+  .expanded .catMeta,
+  .expanded .catDescription {
+    display: block;
   }
   .catName {
     font-size: 1.65rem;

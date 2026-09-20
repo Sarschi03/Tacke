@@ -23,16 +23,23 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Mačje tačke",
-  description: "Društvo ljubiteljv mačjih tačk.",
+  metadataBase: new URL("https://www.drustvomacjihtack.com"),
+  title: {
+    default: "Društvo ljubiteljev mačjih tačk",
+    template: "%s | Društvo mačjih tačk",
+  },
+  description:
+    "Društvo ljubiteljev mačjih tačk v Mariboru — spoznajte naše muce, dogodke in rezervirajte obisk.",
+  applicationName: "Društvo ljubiteljev mačjih tačk",
+  openGraph: {
+    type: "website",
+    locale: "sl_SI",
+    siteName: "Društvo ljubiteljev mačjih tačk",
+  },
   icons: {
-    icon: [
-      { url: "/logo.png", type: "image/png", sizes: "16x16" },
-      { url: "/logo.png", type: "image/png", sizes: "32x32" },
-      { url: "/logo.png", type: "image/png", sizes: "192x192" },
-    ],
-    apple: "/logo.png",
-    shortcut: "/logo.png",
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    apple: "/favicon.png",
+    shortcut: "/favicon.png",
   },
 };
 
@@ -43,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="sl"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
     >
       <body>

@@ -145,6 +145,7 @@ export interface Translations {
       right_p1: string;
       right_p2: string;
       download_form: string;
+      download_info: string;
       form_name_req: string;
       form_first_name: string;
       form_last_name: string;
@@ -366,6 +367,7 @@ export const translations: Record<Language, Translations> = {
         right_p2:
           "Članstvo preneha s prostovoljnim izstopom iz društva, s črtanjem iz članstva, z izključitvijo na podlagi sklepa disciplinske komisije ali s smrtjo.",
         download_form: "Prenesi PDF obrazec",
+        download_info: "Prenesi informacije o članstvu",
         form_name_req: "Ime (obvezno)",
         form_first_name: "Ime",
         form_last_name: "Priimek",
@@ -605,6 +607,7 @@ export const translations: Record<Language, Translations> = {
         right_p2:
           "Membership ends through voluntary withdrawal from the association, removal from the membership register, expulsion based on a decision of the disciplinary committee, or death.",
         download_form: "Download the PDF form",
+        download_info: "Download membership information",
         form_name_req: "Name (required)",
         form_first_name: "First name",
         form_last_name: "Last name",
@@ -848,6 +851,7 @@ export const translations: Record<Language, Translations> = {
         right_p2:
           "Die Mitgliedschaft endet durch freiwilligen Austritt aus dem Verein, Streichung aus dem Mitgliederverzeichnis, Ausschluss aufgrund eines Beschlusses der Disziplinarkommission oder durch Tod.",
         download_form: "PDF-Formular herunterladen",
+        download_info: "Mitgliedschaftsinformationen herunterladen",
         form_name_req: "Name (erforderlich)",
         form_first_name: "Vorname",
         form_last_name: "Nachname",

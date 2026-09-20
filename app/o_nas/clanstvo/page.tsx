@@ -36,10 +36,17 @@ export default function ClanstvoPage() {
         <section className={membershipStyles.downloadSection}>
           <a
             className={membershipStyles.downloadButton}
-            href="/statut-drustva-ljubiteljev-macjih-tack.pdf"
+            href="/pristopna-izjava-clanstvo.pdf"
             download
           >
             {membership.download_form}
+          </a>
+          <a
+            className={membershipStyles.downloadButton}
+            href="/statut-drustva-ljubiteljev-macjih-tack.pdf"
+            download
+          >
+            {membership.download_info}
           </a>
         </section>
       </main>
