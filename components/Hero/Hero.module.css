@@ -34,6 +34,14 @@
   /* Explicitly bottom layer */
 }
 
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.45);
+}
+
 .image {
   object-fit: cover;
   object-position: center;

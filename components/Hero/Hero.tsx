@@ -69,6 +69,7 @@ export default function Hero() {
             ))}
           </div>
         </div>
+        <div className={styles.imageOverlay} aria-hidden="true" />
         {/* Left-side text overlay positioned lower */}
         <div className={styles.heroContent}>
           <p className={styles.heroLabel}>{t.hero.label}</p>
