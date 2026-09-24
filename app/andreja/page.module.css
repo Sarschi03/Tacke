@@ -447,6 +447,21 @@
   font-size: 0.65rem;
   text-transform: uppercase;
 }
+.phoneLink {
+  color: #2478ff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.phoneLink:hover,
+.phoneLink:focus-visible {
+  color: #125dcc;
+}
+.phoneLink:focus-visible {
+  outline: 2px solid #2478ff;
+  outline-offset: 3px;
+}
 .messageDetail {
   grid-column: 1 / -1;
   padding-top: 0.25rem;

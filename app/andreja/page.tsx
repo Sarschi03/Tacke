@@ -506,7 +506,17 @@ function DashboardContent() {
                                 </span>
                                 <span>
                                   <b>Telefon</b>
-                                  {reservation.phone ?? "Ni podatka"}
+                                  {reservation.phone?.trim() ? (
+                                    <a
+                                      className={styles.phoneLink}
+                                      href={`tel:${reservation.phone.trim()}`}
+                                      aria-label={`Pokliči ${reservation.name ?? "stranko"} na ${reservation.phone}`}
+                                    >
+                                      {reservation.phone}
+                                    </a>
+                                  ) : (
+                                    "Ni podatka"
+                                  )}
                                 </span>
                                 {reservation.message && (
                                   <span className={styles.messageDetail}>
